@@ -1,0 +1,39 @@
+extends ./template
+include ./_mixins
+
+
+block styles
+	link( href="/css/admin.css" rel="stylesheet" type="text/css" )
+block scripts
+	script(src='/js/admin.js')
+
+block header	
+	h1 Process Orders
+
+block main	
+	.ordersContainer
+		if message 
+			p.alert=message
+		p.strong Current Orders
+		.heading
+			.action Action
+			.customer Customer
+			.status Status
+			.invoice Invoice
+			.submited Submited
+		.rows
+			if orders
+				each order in orders
+					.row 
+						.action 
+							a(href="/order/"+order.id) Update
+						.customer= order.customer_id
+						.status PO#: #{order.po_number} - #{order.status}
+						.invoice #{order.subtotal_amount}
+						.submited
+							+dateformat(order.created)
+				if !isfull
+					a(href="/ordersfull/") View All Orders
+			else
+				p No Orders to display
+					

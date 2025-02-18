@@ -1,0 +1,53 @@
+aside.sidebar
+	div.loading
+		div.filter-loading-icon
+	div.filters
+		p.filters__description Looking for something specific? Start here to refine your search and narrow it down to the results you want.
+		div.filters__filter-by
+			label.filters__filter-by__label
+				span Filters:
+			div.filters__filter-by__fields
+				label.filters__filter-by__field
+					span #{ `Warehouse > ${ warehouse ? warehouses[warehouse].state : "Show All" }` }
+					a( href="#" ) x
+		section.filters__filter.warehouses
+			label.filters__filter__label
+				span Warehouse Inventory
+				span.note #{ `Location: ${ warehouse ? `${ warehouses[warehouse].city }, ${ warehouses[warehouse].state }` : "Show All" }` }
+			fieldset.filters__filter__content
+				label.note Select a warehouse location to see products in-stock now
+				fieldset.filters__filter__fields
+					fieldset.filters__filter__field.show-all
+						label
+							input( type="radio", value="", name="warehouse", checked=!warehouse )
+							span Show All
+					if warehouses
+						each key in Object.keys( warehouses )
+							fieldset.filters__filter__field
+								label
+									input( type="radio", value=key, name="warehouse", checked=warehouse && warehouse === key )
+									span #{ `${ warehouses[key].city }, ${ warehouses[key].state }` }
+									span #{ `${ warehouses[key].city }` }
+									span #{ `${ warehouses[key].state }` }
+									span #{ `TEST` }
+									
+		section.filters__filter.categories
+			label.filters__filter__label Categories
+			fieldset.filters__filter__content
+				fieldset.filters__filter__fields
+					each category in Object.keys( specifications.filter )
+						fieldset.filters__filter__field
+							label
+								input( type="radio", value=category, name="category" )
+								case category
+									when "accessory"
+										span Accessories
+									when "tire"
+										span Tires
+									when "wheel"
+										span Wheels
+		section.filters__filter.specifications
+			label( class=category ? "filters__filter__label" : "filters__filter__label disabled" )
+				span Specifications
+				if !category
+					span.note Please select a category.

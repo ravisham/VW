@@ -1,0 +1,53 @@
+{
+    "resource":"/VWShippingCalculator",
+    "path":"/VWShippingCalculator",
+    "httpMethod":"GET",
+    "headers":{
+        "Accept":"text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+        "Accept-Encoding":"gzip, deflate, sdch, br",
+        "Accept-Language":"en-US,en;q=0.8",
+        "CloudFront-Forwarded-Proto":"https",
+        "CloudFront-Is-Desktop-Viewer":"true",
+        "CloudFront-Is-Mobile-Viewer":"false",
+        "CloudFront-Is-SmartTV-Viewer":"false",
+        "CloudFront-Is-Tablet-Viewer":"false",
+        "CloudFront-Viewer-Country":"US",
+        "Host":"7ye4w6zuwh.execute-api.us-east-1.amazonaws.com",
+        "Referer":"https://us-east-1.console.aws.amazon.com/lambda/home?region=us-east-1",
+        "Upgrade-Insecure-Requests":"1",
+        "User-Agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.98 Safari/537.36",
+        "Via":"1.1 86f2bbfea57d6217ce2d279b84ca3743.cloudfront.net (CloudFront)",
+        "X-Amz-Cf-Id":"bqnQsvCffUi2Advubgx4ib_Z5k5aHK2hYC1awJUZeJJAczd3zxYYYg==",
+        "X-Forwarded-For":"104.172.247.117, 205.251.202.54",
+        "X-Forwarded-Port":"443",
+        "X-Forwarded-Proto":"https"
+    },
+    "queryStringParameters":null,
+    "pathParameters":null,
+    "stageVariables":null,
+    "requestContext":{
+        "accountId":"186853513953",
+        "resourceId":"9dhd74",
+        "stage":"prod",
+        "requestId":"28ed8199-c1af-11e6-93d8-298db4fa72ac",
+        "identity":{
+            "cognitoIdentityPoolId":null,
+            "accountId":null,
+            "cognitoIdentityId":null,
+            "caller":null,
+            "apiKey":null,
+            "sourceIp":"104.172.247.117",
+            "accessKey":null,
+            "cognitoAuthenticationType":null,
+            "cognitoAuthenticationProvider":null,
+            "userArn":null,
+            "userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.98 Safari/537.36",
+            "user":null
+        },
+        "resourcePath":"/VWShippingCalculator",
+        "httpMethod":"GET",
+        "apiId":"7ye4w6zuwh"
+    },
+    "body":"[{\"from\":\"IN\",\"to\":\"30305\",\"items\":[{\"type\":\"accessoryLug\",\"size\":15,\"qty\":4},{\"type\":\"accessory\",\"size\":15,\"qty\":4},{\"type\":\"wheel\",\"size\":15,\"qty\":4},{\"type\":\"wheel\",\"size\":22,\"qty\":4}]},{\"from\":\"CA\",\"to\":\"90232\",\"items\":[{\"type\":\"wheel\",\"size\":20,\"qty\":8},{\"type\":\"wheel\",\"size\":22,\"qty\":12}]}]",
+    "isBase64Encoded":false
+}

@@ -1,0 +1,67 @@
+@import "./components/layout";
+@import "./components/filter-tool";
+@import "./components/filter-results";
+#main {
+	overflow-x: auto;
+}
+.main-content {
+	width: 100%;
+
+	.carousel {
+	  &__items {
+	    &__item {
+	      border: 1px solid $silver;
+	      &-content {
+	      	img {
+	      		display: block;
+	      		width: 100%;
+	      	}
+	      }
+	    }
+	  }
+	  + .featured-content {
+	    margin-top: 40px;
+	  }
+	}
+	.featured-content {
+	  &__popular {
+	    &__items {
+	      margin-bottom: 30px;
+	      &-title {
+	        @include font-size(16, initial, 20);
+	        margin-bottom: 30px;
+	        text-transform: uppercase;
+	      }
+	    }
+	    .popular {
+	      font-size: 0;
+	      display: flex;
+	      flex-direction: row;
+	      &__item {
+	        flex: 1;
+	        text-align: center;
+	        .image {
+	          height: 100px;
+	          line-height: 100px;
+	          margin-bottom: 15px;
+	        }
+	        img {
+	          max-width: 100px;
+	          max-height: 100px;
+	          width: auto;
+	          vertical-align: middle;
+	        }
+	        p, li {
+	          @include font-size(12, 16, 20);
+	        }
+	        a {
+	          text-decoration: underline;
+	        }
+	      }
+	    }
+	  }
+	}
+	&.hidden {
+		display: none;
+	}
+}

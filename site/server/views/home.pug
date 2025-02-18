@@ -1,0 +1,73 @@
+extends ./templates/layout
+include ./_mixins
+
+block styles
+	link( href="/css/home.css" rel="stylesheet" type="text/css" )
+
+mixin popularItem(item)
+	li.popular__item(data-item=JSON.stringify(item))
+		- let image = (item.image.list&&item.image.list.length>0)?item.image.list[0]:"https://placehold.it/160x160"
+		div.image
+			img( src=image, alt=item.brand )
+		ul
+			li
+				span= item.brand
+			li
+				a( href="#" rel="open:modal" data-modal="modal-one" )=item.model
+			if item.xref
+				li
+					span Article # #{item.xref}
+			li
+				span VW SKU # #{item.part_number}
+			
+			if !user.isDTCUser && item.price
+				li
+					+userPricing(item.price)
+			
+			
+
+block main
+	div#home.content
+		div.main-content
+			div.carousel
+				div.carousel--wrapper
+					div.carousel__items
+						div.carousel__items__item
+							div.carousel__items__item-content
+								img( src="http://visionwheel.s3.amazonaws.com/headerimage.jpg" alt="" )
+			div.featured-content
+				div.featured-content__popular
+					if (popular.wheels.length>0)
+						div.featured-content__popular__items.featured-content__popular__items--wheels
+							div.featured-content__popular__items-title
+								h4 Most Popular Wheels
+							ul.popular
+								each wheel in popular.wheels.slice(0,5)
+									+popularItem(wheel)
+					if (popular.tires.length>0)
+						div.featured-content__popular__items.featured-content__popular__items--tires
+							div.featured-content__popular__items-title
+								h4 Most Popular Tires
+							ul.popular
+								each tire in popular.tires.slice(0,5)
+									+popularItem(tire)
+					if (popular.accessories.length>0)
+						div.featured-content__popular__items.featured-content__popular__items--accessories
+							div.featured-content__popular__items-title
+								h4 Most Popular Accessories
+							ul.popular
+								each accessory in popular.accessories.slice(0,5)
+									+popularItem(accessory)
+		div.filter-results.hidden
+
+block scripts
+	//- script#js(
+	//- 	data-brands=brands
+	//- 	data-items=items
+	//- 	data-products=products
+	//- 	data-specifications=specifications.filter
+	//- 	data-warehouse=warehouse
+	//- 	data-warehouses=warehouses
+	//- 	src="/js/home.js"
+	//- )
+	script#js( src="/js/home.js" )

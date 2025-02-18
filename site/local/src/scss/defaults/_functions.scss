@@ -1,0 +1,6 @@
+@function pc($target, $context, $padding: 0) {
+  @return percentage($target / ($context - $padding));
+}
+@function rem($value) {
+  @return ($value / 16px);
+}

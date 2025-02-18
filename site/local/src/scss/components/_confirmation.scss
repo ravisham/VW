@@ -1,0 +1,94 @@
+.confirmation {
+  &__message {
+    text-align: center;
+    margin-bottom: 80px;
+    h3 {
+      @include font-size(22, initial, 60);
+      margin-bottom: 15px;
+    }
+    h6 {
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    p {
+      margin-bottom: 20px;
+    }
+  }
+  &__review {
+    margin: 20px 0;
+    border-bottom: 2px solid $silver;
+    thead {
+      border-bottom: 2px solid $silver;
+    }
+    td {
+      padding: 20px;
+      &:first-child {
+        padding-left: 0;
+      }
+      &:nth-child(2) {
+        text-align: center;
+      }
+    }
+    th {
+      text-align: left;
+      text-transform: uppercase;
+      @extend %RubikMedium;
+      padding: 10px 20px;
+      &:first-child {
+        padding-left: 0;
+      }
+      &:nth-child(2) {
+        text-align: center;
+      }
+    }
+    .location {
+      border-top: 1px solid $silver;
+      &:first-child {
+        border-top: 0 none;
+      }
+    }
+    .quantity {
+      > span {
+        @include font-size(12, initial, 20);
+        color: $dusty-gray;
+        text-transform: uppercase;
+      }
+      .count {
+        @extend %RubikMedium;
+      }
+      input {
+        margin-left: 5px;
+      }
+    }
+    .product {
+      margin-bottom: 30px;
+      img {
+        width: auto;
+      }
+      strong {
+        margin-bottom: 5px;
+        display: block;
+      }
+      a {
+        text-decoration: underline;
+        display: block;
+        margin-bottom: 5px;
+      }
+      .image,
+      .info {
+        display: inline-block;
+        vertical-align: top;
+      }
+      .image {
+        margin-right: 10px;
+      }
+      .delete {
+        margin: 15px 0;
+        display: block;
+      }
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}

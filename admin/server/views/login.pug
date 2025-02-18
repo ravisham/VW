@@ -1,0 +1,25 @@
+doctype html
+html
+	head
+		meta( charset="UTF-8" )
+		meta( http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" )
+		title Vision Wheel | Dealers
+		meta( name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" )
+		link( href="/css/login.css" rel="stylesheet" type="text/css" )
+	body
+		div#wrapper
+			header
+				a( href="/" )
+					span.logo
+			div#main
+				div#login
+					h1.headline Admin Console Login
+					- var classes = error ? ["has-error"] : []
+					if error
+						h2.error There was a problem with your username and/or password.
+					form( method="POST" action="/login" class=classes )
+						div.fields
+							input.field( name="email" type="text" placeholder="Email" )
+							input.field( name="password" type="password" placeholder="Password" )
+						input.submit( value="Submit" type="submit" )
+			

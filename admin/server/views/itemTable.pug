@@ -1,0 +1,74 @@
+mixin SpecsFormat(specs)
+	if specs
+		each item, key in specs
+			p
+				span=key+":"
+				span=item
+
+mixin InsertHeader(mode)
+	if mode=="items"
+		tr
+			td.action Select
+			td.img Image
+			td Product Group Code
+			td Part Number
+			td Details
+	if mode=="productwheel"
+		tr
+			td.action Action
+			td.img Image
+			td Part Number
+			td Diameter
+			td Width
+			td Bolt Pattern 1
+			td Bolt Pattern 2
+			td Backspace
+			td Offset
+			td Cap / Bore / Load
+			td Finish
+
+mixin InsertRow(item, mode, checked)
+	- var imgsrc = (item.image && item.image.list) ? item.image.list[0] : "https://placehold.it/128x128"
+	- var classes = item.specification?item.specification.product_group_code:"";
+	- classes+= item.product_id==null ? " orphine" : "";
+	
+	if mode=="items"
+		tr(class=classes)
+			td.action
+				input(type="checkbox" name="id[]", value=item.id, checked=checked)
+			td.img
+				img(src=imgsrc)
+			td=pgc
+			td=item.part_number
+			td.specs(data-specs=JSON.stringify(item.specification))
+				p.rollover Rollover for Specs
+				.specsOver
+					+SpecsFormat(item.specification)
+	if mode=="productwheel"
+		tr.productItem
+			td.action
+				input(type="checkbox" name="id[]", value=item.id, checked=checked)
+				//input(type="checkbox" name="part_number[]", value=item.part_number)
+			td.img
+				img(src=imgsrc)
+			td=item.part_number
+			if item.specification
+				
+				td=item.specification.diameter
+				td=item.specification.width
+				td=item.specification.boltpattern1
+				td=item.specification.boltpattern2
+				td=item.specification.backspace
+				td=item.specification.offset
+				td=item.specification.cap_bore_load
+				td=item.specification.finish
+
+mixin ItemTable (items, mode, checked)
+	- var index = 0
+	table(border=1)
+		thead
+			+InsertHeader(mode)
+		tbody
+		each item, key in items
+			- index++
+			+InsertRow(item, mode, checked)

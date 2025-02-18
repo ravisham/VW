@@ -1,0 +1,71 @@
+.search-results {
+  &__title {
+    @include font-size(18, initial, 60);
+    text-transform: uppercase;
+    @extend %RubikMedium;
+    text-decoration: underline;
+    margin-bottom: 30px;
+  }
+  &__content {
+    table table tbody tr {
+      td:last-child {
+        background-color: $white;
+        padding: 0;
+        position: relative;
+        .cta {
+          height: 100%;
+          position: absolute;
+          right: 0;
+          padding: 0;
+          width: calc(100% - 10px);
+          top: 0;
+        }
+      }
+      &:nth-child(odd) {
+        background-color: $gallery;
+      }
+    }
+    td, th {
+      word-wrap: no-break;
+    }
+    th {
+      text-align: center;
+      padding: 5px 5px 10px;
+      &:first-child {
+        text-align: left;
+      }
+      &:last-child {
+        padding-left: 10px;
+      }
+    }
+    td {
+      padding: 2px 8px;
+      text-align: center;
+      vertical-align: middle;
+      &:first-child {
+        text-align: left;
+      }
+    }
+  }
+  &__result {
+    text-align: left;
+    @include font-size(11, initial, 20);
+    .product-info {
+      .image {
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 5px;
+        img {
+          max-width: 50px;
+          width: auto;
+          max-height: 50px;
+        }
+      }
+      .text {
+        display: inline-block;
+        text-align: left;
+        vertical-align: middle;
+      }
+    }
+  }
+}

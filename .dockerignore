@@ -1,0 +1,8 @@
+**/logs/
+# **/node_modules/
+.git/
+.gitignore
+.env
+.eslintrc
+.editorconfig
+.gitlab-ci.yml

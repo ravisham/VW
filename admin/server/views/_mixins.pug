@@ -1,0 +1,13 @@
+mixin dateformat(date)
+	-
+		var orderDate = new Date(date);
+		var utc = orderDate.getTime() + (orderDate.getTimezoneOffset() * 60000);
+		var offset = -5; //EST
+		var d = new Date(utc+(3600000*offset));
+		var minutes = "" + d.getMinutes();
+		while (minutes.length < 2) {
+			minutes = "0" + minutes;
+		}
+	span(
+		title="at " + d.getHours() + ":" + minutes + " EST"
+	)=(d.getMonth()+1)+"/"+d.getDate()+"/"+d.getFullYear()

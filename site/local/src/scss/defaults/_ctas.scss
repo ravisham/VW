@@ -1,0 +1,44 @@
+.cta {
+  display: inline-block;
+  cursor: pointer;
+
+  &--inline {
+    @extend %Rubik;
+    @include font-size(14, initial, 40);
+    color: $link-color;
+
+    &:hover {
+      color: $link-color-hover;
+    }
+    &:focus,
+    &:active {
+      color: $link-color-active;
+    }
+  }
+  &--button {
+    @extend %RubikMedium;
+    @include font-size(14, initial, 60);
+    background-color: $link-color;
+    color: $white;
+    padding: 12px 20px 10px;
+    text-align: center;
+    text-transform: capitalize;
+
+    &:hover {
+      background-color: $link-color-hover;
+    }
+    &:focus,
+    &:active {
+      background-color: $link-color-active;
+    }
+  }
+  &--button-secondary {
+    @extend %RubikMedium;
+    @include font-size(14, initial, 60);
+    background-color: $color-white;
+    border: 1px solid $color-dusty-gray;
+    padding: 12px 20px 10px;
+    text-align: center;
+    text-transform: capitalize;
+  }
+}

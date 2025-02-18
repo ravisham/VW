@@ -1,0 +1,39 @@
+.social-links {
+  &__link {
+    display: inline-block;
+    margin-left: 5px;
+    a {
+      height: 30px;
+      width: 30px;
+      border-radius: 50%;
+      background-color: $white;
+      text-align: center;
+      line-height: 30px;
+      display: block;
+      background-size: auto 50% !important; // adds override to background-size set within mixins below
+      text-indent: -9999px;
+      overflow: hidden;
+    }
+    &--facebook {
+      a {
+        @include background-icon('facebook-icon');
+      }
+    }
+    &--instagram {
+      a {
+        @include background-icon('instagram-icon');
+      }
+    }
+    &--youtube {
+      a {
+        @include background-icon('youtube-icon');
+      }
+    }
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+  + .footer__copyright {
+    margin-top: 160px;
+  }
+}

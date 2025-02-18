@@ -1,0 +1,51 @@
+{
+  "name": "taskrunner",
+  "version": "0.1.0",
+  "description": "Task runner for all of vision wheels cronjobs.",
+  "main": "server.js",
+  "author": "Joaquin Briceno",
+  "license": "ISC",
+  "config": {
+    "port": 8080,
+    "path": "./",
+    "dir": "./../importer/config"
+  },
+  "engines": {
+    "node": ">=7.10.0",
+    "npm": "~4.5.0"
+  },
+  "scripts": {
+    "env": "env",
+    "inspector": "./node_modules/.bin/node-inspector",
+    "start": "node server.js",
+    "start:qa": "NODE_CONFIG_DIR=$npm_package_config_dir NODE_ENV=qa DEBUG=* npm start",
+    "start:qa:docker": "docker build -t $npm_package_name . && docker run -it -e NODE_ENV=qa DEBUG=* -p 8080:8080 $npm_package_name",
+    "start:dev": "NODE_CONFIG_DIR=$npm_package_config_dir DEBUG=* npm start",
+    "start:prod": "NODE_CONFIG_DIR=$npm_package_config_dir NODE_ENV=production DEBUG=* npm start",
+    "test": "NODE_CONFIG_DIR=$npm_package_config_dir mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@int-gitlab.aws.lbox.com:Mirum/vision-wheel-dealers.git"
+  },
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "compression": "^1.6.2",
+    "debug": "^2.6.4",
+    "express": "^4.15.2",
+    "method-override": "^2.3.8",
+    "node-slack": "0.0.7",
+    "timexe": "^0.9.10",
+    "touch": "^3.1.0"
+  },
+  "devDependencies": {
+    "aws-sdk": "^2.49.0",
+    "chai": "^3.5.0",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.4.1",
+    "node-inspector": "^1.1.1"
+  },
+  "peerDependencies": {
+    "importer": "file:../importer"
+  }
+}

@@ -1,0 +1,82 @@
+@import "./components/layout";
+.login {
+  &__form {
+    width: 50%;
+    margin: 0 auto;
+    &__title {
+      text-transform: uppercase;
+      @extend %RubikMedium;
+      @include font-size(24, initial, 40);
+      margin-bottom: 30px;
+    }
+    &__fields {
+      text-align: left;
+      label {
+        color: $silver;
+        margin-bottom: 10px;
+        display: block;
+      }
+      input {
+        height: 50px;
+        width: 100%;
+        background-color: $gallery;
+        border: 0 none;
+        padding: 10px 20px;
+        color: $mine-shaft;
+        margin-bottom: 20px;
+      }
+    }
+    &__helper {
+      text-align: left;
+      margin-bottom: 20px;
+      a {
+        margin-right: 20px;
+        color: $silver;
+        text-decoration: underline;
+      }
+    }
+    &__submit {
+      text-align: left;
+      button {
+        text-transform: uppercase;
+      }
+    }
+  }
+}
+
+.main {
+  @include clearfix;
+  padding: 40px;
+}
+
+.header__nav,
+.header__search,
+.footer__support-links,
+.footer__menu-links {
+  display: none;
+}
+.header__utility {
+  text-align: center;
+  .logo {
+    float: none;
+    display: inline-block;
+  }
+}
+.footer__menu {
+  text-align: center;
+  .logo {
+    float: none;
+    display: inline-block;
+  }
+}
+.footer__support {
+  text-align: center;
+  &-extra {
+    float: none;
+    text-align: center;
+    display: inline-block;
+  }
+}
+.main {
+  text-align: center;
+}

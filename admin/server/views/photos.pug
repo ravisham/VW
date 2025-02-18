@@ -1,0 +1,31 @@
+extends ./template
+
+include ./itemTable
+
+block styles
+	link( href="/css/items.css" rel="stylesheet" type="text/css" )
+block scripts
+	script(src='/js/items.js')
+
+block header	
+	h1 Item Photos
+
+block primaryControls
+	p.strong Upload photos to Items
+	p Below you will find items thats are grouped together buy Product Group Code and finish (if available) and search description. Uploading a photo will apply to the selected items in the group. 
+
+block main
+	p.strong Item Photo Groups
+	each photoGroup in photoGroups
+		form#items(action='/products/photos', method="post", enctype="multipart/form-data")
+			h2.groupHeader
+				span=photoGroup.productGroupCode+" - "+photoGroup.finish
+			.items
+				+ItemTable(photoGroup.items, "items", true)
+			.productAssociationContainer
+				.productAssociation
+					p.strong Upload a Photo
+					p
+						input(type="file" name="photo" accept="image/*")
+					p
+						input(type='submit')

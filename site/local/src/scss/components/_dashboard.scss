@@ -1,0 +1,95 @@
+.dashboard {
+  &__items {
+    &__item {
+      &-title {
+        border-bottom: 2px solid $mine-shaft;
+        text-align: center;
+        text-transform: uppercase;
+        @extend %RubikMedium;
+        padding: 10px 0;
+        h4 {
+          position: relative;
+          display: inline-block;
+          padding-right: 18px;
+          &::after {
+            content: '';
+            width: 0;
+            height: 0;
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-top: 6px solid $guardsman-red;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-60%);
+            right: 0;
+          }
+        }
+      }
+      &-content {
+        padding: 25px 0;
+      }
+    }
+    &-section {
+      padding: 15px 0;
+      border-bottom: 1px solid $silver;
+      @include clearfix;
+      &__content {
+        float: left;
+        .icon--container {
+          width: auto;
+        }
+        h3 {
+          @include font-size(30, initial, 20);
+          @extend %RubikBold;
+        }
+        h5 {
+          @include font-size(16, initial, 20);
+          @extend %RubikMedium;
+        }
+        strong {
+          @extend %RubikMedium;
+          margin-top: 20px;
+          display: inline-block;
+          margin-bottom: 5px;
+        }
+        p {
+          margin-bottom: 5px;
+        }
+        .field {
+          margin-top: 20px;
+          label {
+            display: block;
+            @include font-size(12, initial, 40);
+            margin-bottom: 10px;
+          }
+          input {
+            border: 0 none;
+            background-color: $gallery;
+            padding: 14px 15px 13px;
+            color: $mine-shaft;
+            @extend %RubikMedium;
+            @include font-size(10, initial, 60);
+            text-transform: uppercase;
+            width: 315px;
+            display: inline-block;
+            vertical-align: top;
+            height: 100%;
+          }
+        }
+        select {
+          display: block;
+          width: 315px;
+          margin-top: 10px;
+        }
+        &:nth-child(2) {
+          float: right;
+        }
+      }
+      &:last-child {
+        margin-bottom: 0;
+        padding-bottom: 0;
+        border-bottom: 0 none;
+      }
+    }
+  }
+}

@@ -1,0 +1,150 @@
+.orderGrid {
+  img {
+    width: auto;
+  }
+  &__submit {
+    display: block;
+    text-align: right;
+    &-total {
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 10px;
+      @extend %RubikMedium;
+      text-transform: uppercase;
+    }
+  }
+  &__list {
+    margin: 20px 0;
+    border-bottom: 2px solid $silver;
+    width: 100%;
+    thead {
+      border-bottom: 2px solid $silver;
+    }
+    td {
+      padding: 20px;
+
+      &:first-child {
+        padding-left: 0;
+        width: 20%;
+      }
+      &:nth-child(2) {
+        text-align: center;
+        width: 20%;
+      }
+      &:nth-child(3) {
+        text-align: left;
+        width: 20%;
+      }
+      &:last-child {
+        width: 20%;
+        font-size: 11px;
+        line-height:15px;
+        padding: 20px 0 20px 117px;
+      }
+    }
+    th {
+      text-align: left;
+      text-transform: uppercase;
+      @extend %RubikMedium;
+      padding: 10px 20px;
+      &:first-child {
+        padding-left: 0;
+        width: 20%;
+      }
+      &:nth-child(2) {
+        text-align: center;
+        width: 20%;
+      }
+      &:nth-child(3) {
+        text-align: left;
+        width: 20%;
+      }
+      &:last-child {
+        width: 20%;
+        padding:10px 0 10px 117px;
+      }
+    }
+    .location {
+      border-top: 1px solid $silver;
+      &:first-child {
+        border-top: 0 none;
+      }
+    }
+    .quantity {
+      display: inline-block;
+      vertical-align: middle;
+      .error-image {
+        width:16px;
+        height:16px;
+        float: left;
+        padding-bottom: 35px;
+        margin-right: 6px;
+        margin-left: 18px;
+      }
+      .error {
+        @include font-size(10, initial, 0);
+        color: $guardsman-red;
+        margin: 0 0 0.125rem 0;
+        text-align: left;
+        width:131px;
+        margin-top:10px;
+      }
+      > span {
+        @include font-size(10, initial, 20);
+        color: $dusty-gray;
+        text-transform: uppercase;
+        margin-right: 10px;
+      }
+      .input-indicator {
+        display: inline-block;
+        position: relative;
+        vertical-align: middle;
+        input {
+          @include font-size(10, initial, 0);
+          display: inline-block;
+          padding: 0.25rem;
+          text-align: center;
+          width: 3rem;
+        }
+      }
+    }
+    .product {
+      margin-bottom: 30px;
+      img {
+        cursor: pointer;
+        width: 40px;
+      }
+      strong {
+        margin-bottom: 5px;
+        display: block;
+      }
+      .image,
+      .info {
+        display: inline-block;
+        vertical-align: top;
+        font-size:11px;
+        line-height:14px;
+        .checkout-size {
+          margin-top:15px;
+        }
+        a {
+          @extend %RubikMedium;
+          @include font-size(11, 14, 20);
+          display: block;
+          margin-bottom: 5px;
+          text-decoration: underline;
+          &.delete {
+            @extend %Rubik;
+            margin: 15px 0;
+          }
+        }
+      }
+      .image {
+        margin-right: 10px;
+      }
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}

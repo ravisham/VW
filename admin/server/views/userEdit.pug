@@ -1,0 +1,137 @@
+extends ./template
+
+block styles
+	link( href="/css/users.css" rel="stylesheet" type="text/css" )
+block scripts
+	script(src='/js/users.js')
+block header	
+	h1= mode + " User"
+block primaryControls
+	a(href="/users") Back
+		
+block main
+	.usersContainer
+		if error 
+			p.error=error
+		if message
+			p.message=message
+		- let action = '/users';
+		form#profileUpdate.adminForm(action=action method='post', autocomplete="off")
+			dl
+				h4 Contact Details
+
+				dt Email
+				dd
+					if ( mode === "Edit")
+						p=user.email
+					else
+						input(type='email', name='email' placeholder='Email' required, pattern="^ @]*@[^ @]*" value=user.email) 
+
+				dt First Name
+				dd
+					input(type='text', name='first_name' placeholder='First Name' value=user.first_name)
+				dt Last Name
+				dd
+					input(type='text', name='last_name' placeholder='Last Name' value=user.last_name)
+				dt Phone 
+				dd
+					input(type='text', name='phone_number' placeholder='Phone Number' value=user.phone_number)
+				h4 Address
+				dt Store Number
+				dd
+					input(type="text" name="store_number" placeholder="Store Number" value=user.store_number)
+				dt Address 1
+				dd
+					input(type="text", name="address_1" placeholder="Address" value=user.address_1)
+				dt Address 2
+				dd
+					input(type="text", name="address_2" placeholder="Address 2" value=user.address_2)
+				dt City
+				dd
+					input(type="text", name="city" placeholder="City" value=user.city)
+				dt State								
+				dd
+					input(type="text", name="state" placeholder="State" value=user.state)
+				dt Zip
+				dd
+					input(type="text", name="zip" placeholder="Zip" value=user.zip)
+				dt Country
+				dd 
+					input(type="text", name="country" placeholder="Country" value=user.country)
+
+				h4 Login
+
+				dt Username
+				dd
+					input(type='text', name='username' placeholder='Username' value=user.username, autocomplete="off")
+			
+				dt Password
+				dd
+					if mode === "Edit"
+						input(type='password', name='newpassword', autocomplete="off", placeholder='Change Password')
+						input(type='password', name='confirmpassword', autocomplete="off", placeholder='Confirm Changed Password')
+					else
+						input(type="password", name="password", placeholder="Password", autocomplete="off" required)
+
+				h4 Dealer
+				dt Dealer (by name)
+				dd
+					select(name="dealer_select")
+						if mode === "Create" || !(user.dealer && user.dealer.id)
+							option(value="", selected disabled) Select a Dealer
+						each dealer in dealers
+							- let selected = user.dealer && parseInt(user.dealer.nav_customer_id) === parseInt(dealer.nav_customer_id);
+							option(value=dealer.nav_customer_id, data-id=dealer.id selected=selected)=dealer.company_name_1
+				dt Dealer (by ID)
+				dd
+					input(type="text" name="dealer_nav_id" placeholder="Dealer ID" value=user.dealer.nav_customer_id required)
+					input(type="hidden" name="dealer_id" value=user.dealer.id)
+
+				h4 Sales Representative
+				dt.twoline Vision Wheel Sales Rep
+				- var salesRep = salesReps.find(rep => rep.id === user.sales_rep);				
+				dd
+					select(name="salesrep_select" required)
+						if mode === "Create"
+								option(value="", selected disabled) Select a Sales Rep
+						each rep in salesReps
+							- let selected = parseInt(user.sales_rep) === parseInt(rep.id);
+							option(value=rep.id, selected=selected)=rep.name
+
+				h4 Default Location
+				dt.twoline Warehouse Location
+				dd
+					select(name="warehouse_select" required)
+						if mode === "Create"
+							option(value="", selected disabled) Select a Warehouse
+						each warehouse in warehouses
+							if (warehouse.isLive)
+								- let selected = user.shipping_config && parseInt(user.shipping_config.defaultLocationCode) === parseInt(warehouse.locationCode);
+								option(value=warehouse.locationCode, selected=selected)=warehouse.name
+				h4 Pricing Modifier
+				dt Multiplier
+				dd
+					input(type="text", name="pricing_multiplier" placeholder="Pricing Multiplier" value=user.pricing_multiplier)
+				h4 Status
+				dt User status
+				dd 
+					label 
+						input(type="checkbox" name="disabled" checked=user.disabled)
+						| Disabled
+				dt Web Shop Checkout
+				dd 
+					label 
+						input(type="checkbox" name="checkout_disabled" checked=user.checkout_disabled)
+						| Disabled
+				dt Local Delivery
+				dd 
+					label 
+						input(type="checkbox" name="local_enabled" checked=user.local_enabled)
+						| Enabled
+					
+			.submit
+				if mode === "Edit"
+					input(type="hidden", name="id" value=user.id)
+					input(type="hidden", name="created" value=user.created)
+				- let buttonText = (mode === "Create") ? "Create User" : "Save Updates"
+				input#update(type="submit", name="update" value=buttonText)

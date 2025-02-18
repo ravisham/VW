@@ -1,0 +1,1 @@
+SELECT client_id, client_secret, redirect_uri FROM "public"."oauth_clients" WHERE client_id = $1 AND client_secret = $2

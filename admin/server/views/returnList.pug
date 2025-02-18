@@ -1,0 +1,35 @@
+extends ./template
+include ./_mixins
+
+
+block styles
+	link( href="/css/admin.css" rel="stylesheet" type="text/css" )
+block scripts
+	script(src='/js/admin.js')
+
+block header	
+	h1 Process Returns
+
+block main	
+	.ordersContainer
+		if message 
+			p.alert=message
+		p.strong Current Returns
+		.heading
+			.action Action
+			.customer Customer
+			.status Status
+			.submited Submited
+		.rows
+			if orders
+				each order in orders
+					.row 
+						.action 
+							a(href="/returns/"+order.id) Update
+						.customer= order.customer_id
+						.status PO#: #{order.po_number} - #{order.status}
+						.submited
+							+dateformat(order.created)
+			else
+				p No Orders to display
+					

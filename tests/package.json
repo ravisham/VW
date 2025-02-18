@@ -1,0 +1,40 @@
+{
+  "name": "vision-wheel-tests",
+  "version": "0.0.1",
+  "description": "Vision Wheel Unit Tests",
+  "main": "./index.js",
+  "author": "Mirum",
+  "license": "ISC",
+  "config": {
+    "port": "8080",
+    "path": "./:./../common/",
+    "dir": "./../importer/config"
+  },
+  "engines": {
+    "node": ">=6.2.1",
+    "npm": "~2.15.1"
+  },
+  "scripts": {
+    "start": "NODE_PATH=$npm_package_config_path NODE_CONFIG_DIR=$npm_package_config_dir mocha ./index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@int-gitlab.aws.lbox.com:Mirum/vision-wheel-dealers.git"
+  },
+  "keywords": [
+    "vision",
+    "wheel",
+    "unit",
+    "tests"
+  ],
+  "dependencies": {
+    "commander": "^2.9.0",
+    "expect": "^1.20.2",
+    "express": "^4.14.1",
+    "mocha": "^3.2.0",
+    "underscore": "^1.8.3"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
+}

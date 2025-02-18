@@ -1,0 +1,43 @@
+Freight Type,Diameter,zone,Customer Price Group,Qty or $ Criteria,Qty per package,Frt per Pkg
+Wheel/Tire,"15""-16""",2,,,2,$19.00
+Wheel/Tire,"17""-18""",2,,,2,$20.00
+Wheel/Tire,"19""-22""",2,,,1,$21.00
+Wheel/Tire,"24""-26""",2,,,1,$23.00
+Wheel/Tire,"15""-16""",3,,,2,$20.00
+Wheel/Tire,"17""-18""",3,,,2,$21.00
+Wheel/Tire,"20""-22""",3,,,1,$24.00
+Wheel/Tire,"24""-26""",3,,,1,$26.00
+Wheel/Tire,"15""-16""",4,,,2,$21.00
+Wheel/Tire,"17""-18""",4,,,2,$22.00
+Wheel/Tire,"20""-22""",4,,,1,$26.00
+Wheel/Tire,"24""-26""",4,,,1,$28.00
+Wheel/Tire,"15""-16""",5,,,2,$23.00
+Wheel/Tire,"17""-18""",5,,,2,$25.00
+Wheel/Tire,"20""-22""",5,,,1,$30.00
+Wheel/Tire,"24""-26""",5,,,1,$34.00
+Wheel/Tire,"15""-16""",6,,,2,$26.00
+Wheel/Tire,"17""-18""",6,,,2,$29.00
+Wheel/Tire,"20""-22""",6,,,1,$36.00
+Wheel/Tire,"24""-26""",6,,,1,$40.00
+Wheel/Tire,"15""-16""",7,,,2,$29.00
+Wheel/Tire,"17""-18""",7,,,2,$33.00
+Wheel/Tire,"19""-22""",7,,,1,$42.00
+Wheel/Tire,"24""-26""",7,,,1,$44.00
+Wheel/Tire,"15""-16""",8,,,2,$32.00
+Wheel/Tire,"17""-18""",8,,,2,$38.00
+Wheel/Tire,"20""-22""",8,,,1,$46.00
+Wheel/Tire,"24""-26""",8,,,1,$49.00
+ATV Wheel/Tire,"10""-12""",2,,,2,$15.00
+ATV Wheel/Tire,"14""-15""",2,,,2,$17.00
+ATV Wheel/Tire,"10""-12""",3,,,2,$16.00
+ATV Wheel/Tire,"14""-15""",3,,,2,$18.00
+ATV Wheel/Tire,"10""-12""",4,,,2,$17.00
+ATV Wheel/Tire,"14""-15""",4,,,2,$19.00
+ATV Wheel/Tire,"10""-12""",5,,,2,$19.00
+ATV Wheel/Tire,"14""-15""",5,,,2,$22.00
+ATV Wheel/Tire,"10""-12""",6,,,2,$21.00
+ATV Wheel/Tire,"14""-15""",6,,,2,$25.00
+ATV Wheel/Tire,"10""-12""",7,,,2,$24.00
+ATV Wheel/Tire,"14""-15""",7,,,2,$29.00
+ATV Wheel/Tire,"10""-12""",8,,,2,$27.00
+ATV Wheel/Tire,"14""-15""",8,,,2,$34.00

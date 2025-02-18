@@ -1,0 +1,345 @@
+@import "./reset";
+@import "../partials/variables";
+@import "../partials/functions";
+@import "../partials/mixins";
+@import "../partials/icons";
+@import "../partials/typography";
+@import "../partials/social";
+@import "./header";
+@import "./modal";
+@import "./footer";
+@keyframes filterLoadingIcon {
+  0% { @include transform( translate3d( -50%, -50%, 0 ) rotateZ( 0deg ) ); }
+  100% { @include transform( translate3d( -50%, -50%, 0 ) rotateZ( 360deg ) ); }
+}
+@keyframes loadingIcon {
+  0% { @include transform( rotateZ( 0deg ) ); }
+  100% { @include transform( rotateZ( 360deg ) ); }
+}
+h1, h2, h3, h4, h5, h6 {
+	@extend %RubikMedium;
+}
+a {
+  @extend %Rubik;
+	color: $link-color;
+}
+b, strong {
+	@extend %RubikMedium;
+}
+html, body {
+  @extend %Rubik;
+	color: $text-color;
+	width: 100%;
+	&.no-scroll {
+		overflow: hidden;
+	}
+}
+body {
+	#main {
+    @include clearfix;
+    display: block;
+		// padding: 170px 0px;
+    padding: 170px 20px 40px 20px;
+    margin: 0 auto;
+    min-width: 1000px;
+    // width: 1024px;
+    width: 100%;
+	}
+  &.user {
+    .header__nav,
+    .header__search,
+    .footer__support-links,
+    .footer__menu-links {
+      display: none;
+    }
+    .header__utility {
+      text-align: center;
+      .logo {
+        display: inline-block;
+        float: none;
+      }
+    }
+    .footer__menu {
+      text-align: center;
+      .logo {
+        display: inline-block;
+        float: none;
+      }
+    }
+    .footer__support {
+      text-align: center;
+      &-extra {
+        display: inline-block;
+        float: none;
+        text-align: center;
+      }
+    }
+    #main {
+			text-align: center;
+    }
+  }
+}
+#wrapper {
+	width: 100%;
+}
+.logo {
+  @include background-icon('logo', false, true) {
+    background-size: 190px auto;
+    display: inline-block;
+    height: 65px;
+    width: 190px;
+  }
+  &--white {
+    @include background-icon('logo-white');
+  }
+}
+.content {
+	position: relative;
+	width: 100%;
+}
+.cta {
+  cursor: pointer;
+  display: inline-block;
+  vertical-align: middle;
+  &--inline {
+    @extend %Rubik;
+    @include font-size(11, 12, 60);
+    color: $link-color;
+    &:hover {
+      color: $link-color-hover;
+    }
+    &:focus,
+    &:active {
+      color: $link-color-active;
+    }
+  }
+  &--button {
+    @extend %RubikMedium;
+    @include font-size(11, 12, 60);
+    background-color: $link-color;
+    border: 1px solid $link-color;
+    color: $white;
+    height: 2rem;
+    padding: 8px 20px;
+    position: relative;
+    text-align: center;
+    text-transform: capitalize;
+    &:hover {
+      background-color: $link-color-hover;
+      border: 1px solid $link-color-hover;
+    }
+    &:focus {
+      //outline: 0;
+    }
+    &:active {
+      background-color: $link-color-active;
+      border: 1px solid $link-color-active;
+    }
+    &.add-to-cart, &.place-order, &.remove-from-cart {
+      overflow: hidden;
+      padding: 0 0 0 0;
+      position: relative;
+      .copy {
+        display: block;
+        padding: 9px 20px;
+        transition: margin 0.3s ease-in-out 0s;
+      }
+      .icons {
+        @include transform( translate3d( 50%, -50%, 0 ) );
+        display: none;
+        position: absolute;
+        top: 50%; right: 50%;
+        .icon {
+          background-position: center center;
+          background-repeat: no-repeat;
+          background-size: contain;
+          display: none;
+          height: 1.25rem;
+          width: 1.25rem;
+          &.loading-icon {
+            background-image: url( "../images/svg/loading-icon-white.svg" );
+            height: 1.5rem;
+            width: 1.5rem;
+          }
+          &.success-icon {
+            background-image: url( "../images/svg/checkmark-white.svg" );
+          }
+        }
+      }
+      &.toggle {
+        .copy {
+          margin: 0 100% 0 -100%;
+          transition: none;
+        }
+        .icons {
+          display: block;
+        }
+      }
+      &.loading {
+        .icons {
+          .icon {
+            &.loading-icon {
+              @include animation( loadingIcon 0.5s linear 0s infinite );
+              display: block;
+            }
+          }
+        }
+      }
+      &.success {
+        .icons {
+          .icon {
+            &.success-icon {
+              display: block;
+            }
+          }
+        }
+      }
+    }
+  	&.inactive {
+  		cursor: default;
+  		opacity: 0.5;
+
+  		&:hover, &:focus, &:active {
+      	background-color: $link-color;
+  		}
+  	}
+  	&.disabled {
+  		background-color: rgba( 120, 120, 120, 1 );
+    	border: 1px solid rgba( 120, 120, 120, 1 );
+  		cursor: default;
+  		opacity: 0.5;
+
+  		&:hover, &:focus, &:active {
+      	background-color: rgba( 120, 120, 120, 1 );
+  		}
+  	}
+  }
+  &--button--white {
+    @extend %RubikMedium;
+    @include font-size(11, 12, 60);
+    background-color: $white;
+    border: 1px solid $dusty-gray;
+		color: $text-color;
+    height: 2rem;
+    padding: 8px 20px;
+    text-align: center;
+    text-transform: capitalize;
+	}
+  &--button-secondary {
+    @extend %RubikMedium;
+    @include font-size(11, 12, 60);
+    background-color: $color-white;
+    border: 1px solid $color-dusty-gray;
+		color: $text-color;
+    height: 2rem;
+    padding: 8px 20px;
+    text-align: center;
+    text-transform: capitalize;
+  }
+  &--button-vehicle-filter {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}
+.input-indicator {
+  border: 1px solid $silver;
+  overflow: hidden;
+  padding: 0 0 0 0;
+  position: relative;
+  input {
+    border: none;
+    display: inline-block;
+    margin: 0 0 0 0;
+    transition: margin 0.3s ease-in-out 0s;
+  }
+  .icons {
+    @include transform( translate3d( 50%, -50%, 0 ) );
+    display: none;
+    position: absolute;
+    top: 50%; right: 50%;
+    .icon {
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-size: contain;
+      display: none;
+      height: 1.25rem;
+      width: 1.25rem;
+      &.loading-icon {
+        background-image: url( "../images/svg/loading-icon-white.svg" );
+      }
+      &.success-icon {
+        background-image: url( "../images/svg/checkmark-white.svg" );
+        height: 1rem;
+        width: 1rem;
+      }
+    }
+  }
+  &.toggle {
+    background-color: rgba( $mine-shaft, 0.6 );
+    input {
+      margin: 0 100% 0 -100%;
+      transition: none;
+    }
+    .icons {
+      display: block;
+    }
+  }
+  &.loading {
+    .icons {
+      .icon {
+        &.loading-icon {
+          @include animation( loadingIcon 0.5s linear 0s infinite );
+          display: block;
+        }
+      }
+    }
+  }
+  &.success {
+    .icons {
+      .icon {
+        &.success-icon {
+          display: block;
+        }
+      }
+    }
+  }
+}
+.sidebar {
+  float: left;
+  // @include rspw(215, $base);
+  // max-width: none;
+  position: relative;
+  width: 16.484375%;
+  .loading {
+    background-color: rgba( 0, 0, 0, 0.5 );
+    position: absolute;
+    top: 0; right: 0; bottom: 0; left: 0;
+    width: 100%;
+    z-index: 1;
+
+    .filter-loading-icon {
+      @include animation( filterLoadingIcon 0.7s ease-in-out 0s infinite );
+      background-image: url( "../images/svg/loading-icon-white.svg" );
+      display: block;
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 2rem;
+      height: 2rem;
+    }
+  }
+  + .content {
+    float: left;
+    padding: 0 0 0 1rem;
+    // width: 100%;
+    // @include rspw(725, $base);
+    // max-width: none;
+    width: 78.515625%;
+  }
+  &.fixed {
+  	position: fixed;
+  }
+}
+//search results div in footer
+.ui-helper-hidden-accessible {
+  display:none;
+}

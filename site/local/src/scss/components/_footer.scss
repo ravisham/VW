@@ -1,0 +1,73 @@
+.footer {
+  background-color: $mine-shaft;
+  color: $white;
+  a {
+    color: $white;
+  }
+  &__menu {
+    @include clearfix;
+    padding: 15px 40px;
+    border-bottom: 1px solid $dove-gray;
+    &-links {
+      float: left;
+      ul {
+        font-size: 0;
+      }
+      li {
+        display: inline-block;
+        vertical-align: top;
+        @include font-size(16, 36, -40);
+        &::after {
+          content: '|';
+          padding-left: 7px;
+          margin-right: 10px;
+          display: inline-block;
+          color: $white;
+        }
+        &:last-child {
+          &::after {
+            content: none;
+          }
+        }
+      }
+    }
+    .logo {
+      float: right;
+    }
+  }
+  &__support {
+    @include clearfix;
+    padding: 15px 40px;
+    &-links {
+      @include clearfix;
+      float: left;
+      ul {
+        float: left;
+        width: 200px;
+        vertical-align: top;
+        > li {
+          @include font-size(14, 22, -40);
+          margin-bottom: 3px;
+          &:first-child {
+            @include font-size(18, initial, -40);
+            @extend %RubikMedium;
+            margin-bottom: 13px;
+          }
+        }
+      }
+    }
+    &-extra {
+      float: right;
+      text-align: right;
+    }
+  }
+  &__contact-info {
+    @include font-size(14, initial, -40);
+    + .social-links {
+      margin-top: 20px;
+    }
+  }
+  &__copyright {
+    @include font-size(12, initial, 0);
+  }
+}

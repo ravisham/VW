@@ -1,0 +1,60 @@
+extends ./template
+include ./_mixins
+
+block styles
+	link( href="/css/brands.css" rel="stylesheet" type="text/css" )
+block scripts
+	script(src='/js/brands.js')
+block header	
+	h1= mode + " Brand"
+block primaryControls
+	a(href="/brands") Back
+		
+block main
+	.brandsContainer
+		if error 
+			p.error=error
+		if message
+			p.message=message
+
+		form#brandForm.adminForm(action="/brands/edit", method="post",  enctype="multipart/form-data" )
+			dl
+				h4 Brand Details
+				dt Brand Name
+				dd
+					input(type="text", name="name" value=brand.name placeholder="Name")
+				dt Slug
+				dd
+					input(type="text", name="slug" value=brand.slug placeholder="Slug")
+				dt Type
+				dd
+					select(name="type")
+						- let brandTypes = ['Accessory', 'Tire', 'Wheel'];
+						each brandType in brandTypes
+							-let brandSlug = brandType.toLowerCase();
+							option(selected=brandSlug === brand.type, value=brandSlug)=brandType
+
+				if ( mode === "Edit" && brand.id )
+					dt Status
+					dd
+						label
+							input(type="checkbox" name="disable_brand" checked=brand.disabled) 
+							| Disabled
+				
+				h4 Brand Logo
+				if brand.logo
+					img.logoimg(src=brand.logo, alt="")
+					br
+					
+				dt Upload New Logo
+				dd
+					input(type="file" name="logoUpload" placeholder="Upload Logo Image" accept="image/*")
+	
+
+			.submit
+				if mode === "Edit"
+					input(type="hidden", name="id" value=brand.id)
+				- let buttonText = (mode === "Create") ? "Create Brand" : "Save Updates"
+				input#update(type="submit", name="update" value=buttonText)
+		
+

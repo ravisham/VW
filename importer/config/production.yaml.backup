@@ -1,0 +1,11 @@
+database:
+  client: 'postgres'
+  username: 'postgres_admin'
+  password: 'pCZJlJFCz3'
+  host: 'visionwheel.c9cwsjkyspvd.us-east-1.rds.amazonaws.com'
+  name: 'visionwheeldealers'
+  port: 5432
+  max: 10
+  idleTimeoutMillis: 30000
+  defaults:
+    parseInputDatesAsUTC: true

@@ -1,0 +1,53 @@
+// These numbers should be passed in the user object.
+- var tollFreeNum = '1-(800)-633-3936';
+
+footer.footer
+	if user
+		div.footer__menu
+			nav.footer__menu-links
+				.logo--white
+				ul
+					li
+						a( href="/" ) Home
+					li
+						a( href="/account" ) My Account
+					li
+						a( href="/account/orders" ) Order History
+					li
+						a( href="/locations" ) Locations
+					li
+						a( href="/contact" ) Contact Us
+		if specifications && specifications.filter
+			div.footer__support
+				nav.footer__support-links
+					ul
+						li Wheels
+						each brand in specifications.filter["wheel"].brand.values
+							li
+								a( href=`/#/filters?q={"category":"wheel","values":[{"type":"brand","value":"${ encodeURIComponent( brand ) }"}]}` ) #{ brand }
+					ul
+						li Tires
+						each brand in specifications.filter["tire"].brand.values
+							li
+								a( href=`/#/filters?q={"category":"tire","values":[{"type":"brand","value":"${ encodeURIComponent( brand ) }"}]}` ) #{ brand }
+					ul
+						li Accessories
+						each brand in specifications.filter["accessory"].brand.values
+							li
+								a( href=`/#/filters?q={"category":"accessory","values":[{"type":"brand","value":"${ encodeURIComponent( brand ) }"}]}` ) #{ brand }
+				div.footer__support-extra
+					div.footer__contact-info
+						p
+							span
+								strong Available Support
+							span  #{tollFreeNum}
+					.social-links
+						ul
+							li.social-links__link.social-links__link--facebook
+								a(href="https://www.facebook.com/VisionWheel/" target="_blank") Facebook
+							li.social-links__link.social-links__link--instagram
+								a(href="https://www.instagram.com/visionwheel/" target="_blank") Instagram
+							li.social-links__link.social-links__link--youtube
+								a(href="https://www.youtube.com/channel/UCuUI5cjJr19W2tXSYEeGuaw" target="_blank") YouTube
+					div.footer__copyright
+						p &copy; 2019 Vision Wheel Inc. All Rights Reserved.

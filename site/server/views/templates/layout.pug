@@ -1,0 +1,33 @@
+doctype html
+html
+	head
+		include ../components/analytics/head
+		meta( charset="UTF-8" )
+		meta( http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" )
+		title Vision Wheel | Dealers
+		meta( name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" )
+		meta( name="version" content="0.0.0.9")
+		meta( name="build" content=process.env.JENKINS_BUILD)
+		if styles
+			each style in styles
+				link( href=style rel="stylesheet" type="text/css" )
+		block styles
+	body( data-isDTCUser= (user && user.isDTCUser ? "true" : "false")  data-checkout= (user && user.checkout_disabled ? "false" : "true") )
+		include ../components/analytics/body
+		div#wrapper
+			include ../components/header
+			main#main
+				if filter && specifications && specifications.filter
+					include ../components/sidebar
+				block main
+			div#modal.hidden
+				div.modal--wrapper
+					div.modal__container
+						div.modal__close
+							span Close
+						div.modal__content
+			include ../components/footer
+		if scripts
+			each script in scripts
+				script( src=script defer)
+		block scripts

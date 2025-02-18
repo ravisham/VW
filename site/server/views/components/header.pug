@@ -1,0 +1,52 @@
+header.header
+	if user
+		nav.header__nav
+			.menu__wrap
+				ul.header__menu
+					li
+						a( href="/" ) Home
+						li.sub-menu.wheel
+							a Wheels
+							ul
+								each brand in specifications.filter["wheel"].brand.values
+									li
+										a( href=`/#/filters?q={"category":"wheel","values":[{"type":"brand","value":"${ encodeURIComponent( brand ) }"}]}` ) #{ brand }
+						li.sub-menu.tire
+							a Tires
+							ul
+								each brand in specifications.filter["tire"].brand.values
+									li
+										a( href=`/#/filters?q={"category":"tire","values":[{"type":"brand","value":"${ encodeURIComponent( brand ) }"}]}` ) #{ brand }
+						li.sub-menu.accessory
+							a Accessories
+							ul
+								each brand in specifications.filter["accessory"].brand.values
+									li
+										a( href=`/#/filters?q={"category":"accessory","values":[{"type":"brand","value":"${ encodeURIComponent( brand ) }"}]}` ) #{ brand }
+				ul.header__menu
+					li.my-account
+						a( href="/account" ) My Account
+					li
+						a( href="/account/orders" ) Order History
+					li
+						a( href="/locations" ) Locations
+					li
+						a( href="/contact" ) Contact Us
+					li
+						a( href="/logout" ) Log Out
+	div.header__utility
+		a.logo( href="/" )
+		if user
+			if user.checkout_disabled !== true
+				a.header__cart( href="/checkout" )
+					div.header__cart-quantity
+						span.header__cart-quantity__count #{ user && user.cartQuantity ? user.cartQuantity : 0 }
+					div.header__cart-link
+						span Checkout
+			div.header__search( data-specifications=specifications.search )
+				form.header__search-form
+					input( type="text" value="" placeholder="Enter Brand, Style/Model or Your SKU Number" )
+					button.cta.cta--button( type="submit" ) Search
+				div.header__search-dropdown
+					ul.ui-menu.no-results.hidden
+						li.ui-menu-item No Results

@@ -1,0 +1,1 @@
+INSERT INTO public.oauth_tokens(access_token, access_token_expires_on, client_id, refresh_token, refresh_token_expires_on, user_id) VALUES ($1, $2, $3, $4)

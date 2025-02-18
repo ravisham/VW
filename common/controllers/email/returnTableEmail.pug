@@ -1,0 +1,263 @@
+//- Breaking this up into peices
+mixin shipping(agentCode, methodCode)
+	-	var agent=""
+	-	agent = (agentCode.toLowerCase()==="ups")? "UPS":agent
+	-	agent = (agentCode.toLowerCase()==="fedex")? "FedEX":agent
+	-	var method=""
+	-	method = (methodCode.toLowerCase()==="standard")? "Standard Ground": method
+	-	method = (methodCode.toLowerCase()==="ltl")? "(LTL)": method
+	-	method = (methodCode.toLowerCase()==="expedited")? "(Expedited)": method
+	p=agent +" "+ method
+
+- var tollFreeNum = isDTCUser ? '1-800-633-3936 / 1-800-542-3998' : '1-(800)-890-7161';
+- var totalItems = 0;
+- var orderTotal = '0';
+
+mixin dateformat(date)
+	-
+		var dateObj = new Date(date);
+		var utc = dateObj.getTime() + (dateObj.getTimezoneOffset() * 60000);
+		var offset = -5; //EST
+		var d = new Date(utc + 3600000 * offset);
+		var minutes = "" + d.getMinutes();
+		while (minutes.length < 2) {
+			minutes = "0" + minutes;
+		}
+	span(title="at " + d.getHours() + ":" + minutes + " EST")=(d.getMonth()+1)+"/"+d.getDate()+"/"+d.getFullYear()+" EST"
+
+mixin table(style="color:black;")
+	table(cellpadding="0" cellspacing="0")
+		block
+
+-
+	var cleanNums = function( num )
+	{
+		if( !num || num === '' ) return 0;
+	    return parseFloat( num.toString().split("$").join('').toString().split(',').join('') );
+	}
+
+-
+	var formatNum = function( num )
+	{
+		return num.toFixed(2).replace(/./g, function( c, i, a ) {
+			return i > 0 && c !== "." && (a.length - i) % 3 === 0 ? "," + c : c;
+		});
+	}
+
+
+mixin logo(order)
+	tr(width="640" align="center" style="font-size:11px;")
+		td(width="340" style="padding: 20px 40px; text-align:left; border-bottom:thin solid black;" align='left')
+			img(style="float:left;" width="118" src="http://visionwheel.s3.amazonaws.com/pages/email-logo-new.svg")
+		td(width="300" style="border-bottom:thin solid black; padding: 20px 0px; font-size:11px; text-align:left;" align="left" )
+			.orderDate
+				p.strong(style="font-weight: bold; margin-bottom: 0.1rem; text-transform:uppercase;") Return Placed:
+					span(style="font-weight:normal; padding-left:5px;")
+						+dateformat(order.created)
+			.orderTotal(style="margin-top: 2px;")
+				p.strong(style="font-weight: bold; margin-bottom: 0.1rem; text-transform:uppercase;") Return PO Number:
+					span(style="font-weight:normal; padding-left:5px;")= order.po_number
+			.orderWebNumber(style="margin-top: 2px;")
+				p.strong(style="font-weight: bold; margin-bottom: 0.1rem; text-transform:uppercase;") Return Web Order Number:
+					span(style="font-weight:normal; padding-left:5px;")= order.web_order_number
+			.orderWebNumber(style="margin-top: 2px;")
+				p.strong(style="font-weight: bold; margin-bottom: 0.1rem; text-transform:uppercase;") Original PO Number:
+					span(style="font-weight:normal; padding-left:5px;")= order.original_order_num
+			.orderWebNumber(style="margin-top: 2px;")
+				p.strong(style="font-weight: bold; margin-bottom: 0.1rem; text-transform:uppercase;") Return Reason: 
+					span(style="font-weight:normal; padding-left:5px;")= order.return_reason
+			.orderWebNumber(style="margin-top: 2px;")
+				p.strong(style="font-weight: bold; margin-bottom: 0.1rem; text-transform:uppercase;") Return Status: 
+					span(style="font-weight:normal; padding-left:5px;")= order.status
+mixin messaging(message)
+	tr(width="640" align="center" style="border-bottom: thin solid black;")
+		td(width="340" style="padding: 20px 40px; text-align:left; border-bottom:thin solid black;" align='left')
+			h1(style="font-size:18px; margin: 0 0 0px; text-transform:uppercase;")!= message.header
+			p(style="font-size:11px;")!= message.subheader
+		td(width="300" style="padding: 20px 0px; font-size:11px; border-bottom:thin solid black;" align="left" )
+			.orderShippingInfo
+				- var country = "";
+				if order && order.user && order.user.country
+					- country = order.user.country
+				if order && order.ship_to_info && order.ship_to_info.country
+					- country = order.ship_to_info.country
+
+				p.strong(style="font-weight: bold; margin-bottom: 0.5rem; text-transform:uppercase;") Return From:
+				p= order.customer_billing_info.customer_name
+				p= order.customer_billing_info.company_name
+				p= order.ship_to_info.address_1
+				p= order.ship_to_info.address_2
+				p= order.ship_to_info.city+", " + order.ship_to_info.state + " " + order.ship_to_info.zip
+				if country !== ""
+					p= country
+
+mixin saleItemRow(item, key, index)
+	-totalItems += item.qty;
+
+	tr(width="560" align="center")
+		td(width="560" style="padding: 20px 0px;" colspan="3")
+			table(width="560" align="center")
+				tr(style="font-size:11px;" )
+					td(width="280" style="border-bottom: thin solid #ccc; padding-bottom: 13px; font-weight:bold; font-size:11; text-transform:uppercase;" align="left" valign="top" colspan="1")
+						if item.shipping_options.shipped
+							p.strong(style="font-weight: bold;margin-bottom: 0.5rem;").shipped="Return #"+index+""
+						else
+							p.strong(style="font-weight: bold; margin-bottom: 0.5rem; text-transform:uppercase;")="Return #"+index
+							
+					td(width="130" style=" border-bottom:thin solid #ccc; padding-bottom: 13px;" colspan="1")
+							if item.shipping_options.shipped
+							- var trackingNo = item.shipping_options.tracking_number
+							- var ups = "https://wwwapps.ups.com/WebTracking/track?track=yes&trackNums="+trackingNo
+							- var fedex = "https://www.fedex.com/apps/fedextrack/?tracknumbers="+trackingNo
+							- var trackingLink = item.shipping_options.shipping_agent.toLowerCase()==='ups'?ups:fedex
+							if item.shipping_options.shipped
+								p.strong(style="text-transform:uppercase; font-weight:bold;") Tracking Number:
+								a(href=trackingLink, target="_blank" style="color:#c00; font-weight:bold; text-decoration-color: #c00;")= trackingNo
+
+				tr(style="font-size:11px;")
+					td.col.col1(align="left" width="300" valign="top")
+						.shippingMethod(style="padding: 10px 0 0; text-transform:uppercase;")
+							p.strong(style="font-weight: bold;margin-bottom: 0.5rem;") Shipping Method:
+							if (item.shipping_options.shipping_method==="pickup")
+								p Vision Wheel - Pickup
+								p.small Please call the #{ item.fulfilment_location.name } to schedule your pick up.
+							else
+								p= item.shipping_options.shipping_agent
+								- var thrdParty = item.shipping_options.third_party_account_number
+								if (thrdParty && thrdParty.length>0)
+									p="Account Number: "+thrdParty
+					td.col.col1(align="left" valign="top" width="250" style="padding: 10px 10px;")
+						.shippingStatus
+							p.strong(style="font-weight: bold;margin-bottom: 0.5rem; text-transform:uppercase;") Return To:
+							p= item.fulfilment_location.name
+							p= item.fulfilment_location.address
+							p= item.fulfilment_location.city+", "+item.fulfilment_location.state+" "+item.fulfilment_location.postal
+
+
+				tr(style="font-size:11px;")
+					td.col.col1(valign="top" width="225")
+						.productThumb(style="float:left; margin-right:10px;" align="left")
+							- var imgsrc = (item.item_description.image) ? item.item_description.image : "https://placehold.it/128x128"
+							img(src=imgsrc, style="max-width:43px;" width="43" align="left" valign="top")
+
+						.productInfo(style="float:left; margin-right:10px;" align="left")
+							p.strong(style="font-weight: bold;margin-bottom: 0.2rem;")=item.model
+							p #{ `Article #: ${ item.customer_item_no || "N/A" }` }
+							p="VW SKU #: "+ item.item_no
+							if( !isDTCUser )
+								p=( item.unit_price || 0 )
+
+					td.col.col1(valign="top" width="225" style="padding: 0 10px;")
+						p="Size: "+ item.item_description.size
+						p="Finish: " + item.item_description.finish
+						p="Qty: "+ item.qty
+
+					if( !isDTCUser )
+						td.col.col1(valign="middle" align='right' width="150" style="padding: 0 10px;")
+							p="SUBTOTAL: " + item.total_line_amount
+
+mixin paymentCharges(order)
+	- var total = order.total_invoice_amount ? order.total_invoice_amount : `$${formatNum( cleanNums( order.subtotal_amount ) + cleanNums( order.tax_amount ) + cleanNums( order.freight_total ))}`;
+
+	tr(width="560" align="center")
+		td(width="268" cellpadding="20" style="padding: 20px; border:1px solid black;" colspan="1")
+			//- .paymentInfoOuter( style="width:560px" align="center" )
+				.paymentInfoInner( style="position:relative; width:268px; float:left; border:1px solid black" )
+			//- .paymentDetails(style="margin:26px 16px")
+			h1(style="color:black; font-size:18px; text-align:left; white-space: nowrap; margin: 0 0 10px;") ORDER SUMMARY
+			.charges( style='text-align:left; font-size:10px; line-height:14px' )
+				table(cellpadding="0" cellspacing="0" width="100%" style="width:100%; font-size:10px; line-height:14px;")
+					tr
+						td(width="70%")= "Items( " + totalItems + " ) "
+						td(width="30%" align="right")= order.subtotal_amount
+					tr
+						td(width="70%") Shipping & handling
+							sup *
+							| : 
+						td(width="30%" align="right") !{ order.freight_total || "$0.00" }
+					tr
+						td(width="70%") Tax:
+						td(width="30%" align="right")= ( order.tax_amount || "$0.00" )
+					tr
+						td(colspan="2")
+							.totalBar( style="height:2px; border-bottom:2px solid black; margin:10px 0;" )
+					tr
+						td(width="70%")
+							p(style="color:#bf1e2e; font-size:18px;")="Order total: "
+						td(width="30%" align="right" style="color:#bf1e2e; font-size:18px;")= total
+					tr
+						td(colspan="2")
+							p
+								span * Price does not include shipping cost 
+								br 
+								span For questions please call, 
+								span(style="color:#bf1e2e;") 1 (800) 890-7161
+
+mixin footer
+	tr
+		td(width="640" style="padding: 20px 40px;font-size:11px;background-color:#333333;color:white;" align="center" colspan="2")
+			.group
+				p
+					span ©2021 Vision Wheel, Inc. All Rights Reserved.
+				p Vision Wheel Inc. 3512-B 6th Avenue
+				p Decatur, Alabama 35603 USA.
+			.group(style="margin-top:20px;")
+				p Please do not reply to this email. If you need to contact Vision Wheel with questions or concerns, <br/>please call Toll Free: #{tollFreeNum}
+
+
+
+
+//- This will allow the two column to be mobile responsive... in theory. Never got these things to actually work.
+style.
+	table {
+		font-family: sans-serif;
+		font-size: 16px;
+	}
+	/* 2 equal-width columns Layout Pattern CSS */
+	@media only screen and (max-width: 599px) {
+		td[class="pattern"] table { width: 100%; }
+		td[class="pattern"] img {
+			width: 100%;
+			height: auto !important;
+		}
+		td[class="pattern"] .col{
+			width: 50%;
+		}
+	}
+	@media only screen and (max-width: 450px) {
+		td[class="pattern"] .col{
+			width: 100%;
+			display: block;
+		}
+		td[class="pattern"] .col1{
+			margin-bottom: 16px;
+		}
+		td[class="pattern"] .description span {
+			display: block;
+			max-width: 300px;
+		}
+	}
+	p {
+		margin: 0 0 3px;
+	}
+	p.strong {
+	    font-weight: bold;margin-bottom: 0.5rem;
+	}
+
+//- Here is the genneral structure of the email
++table()
+	tr
+		td(class="pattern" width="640" align="center")
+			+table()
+				+logo(order)
+				if message
+					+messaging(message)
+				- var index = 0
+				each item, key in order.sale_items
+					- index++
+					+saleItemRow(item, key, index)
+				if( !isDTCUser )
+					+paymentCharges(order)
+				tr
+					td(cellpadding="10", style="padding: 10px;")
+				+footer

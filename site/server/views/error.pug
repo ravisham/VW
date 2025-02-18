@@ -1,0 +1,17 @@
+extends ./templates/layout
+
+block styles
+	link( href="/css/login.css" rel="stylesheet" type="text/css" )
+
+block main
+	.content
+		div(style='text-align: center')
+			h2
+				| Server Error
+			p
+				| We are sorry. We are currently experiencing an error on the server.
+			p
+				| The team has been notified. Please try again in a few minutes.
+			if (error)
+				pre(style='display: none;')
+					| #{error}

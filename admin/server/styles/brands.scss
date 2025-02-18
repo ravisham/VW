@@ -1,0 +1,83 @@
+@import "./common.scss";
+.brandsContainer {
+    margin: 0 auto 50px;
+    max-width: $desktop;
+
+    #brandTable {
+ 
+        img {
+            // outline: 1px solid #dedede;
+            max-height:45px;
+        }
+        .edit {
+            width: 5%;
+        }
+        .logo {
+            width: 20%;
+        }
+        .name {
+            width: 15%;
+
+        }
+        .type {
+            width: 10%;
+            text-align:center;
+        }
+        .null {
+            font-size: 11px;
+            color: #bcbcbc;
+        }
+    }
+    #brandForm {
+        textarea {
+            width: 300px;
+            height: 100px;
+        }
+        .submit {
+            margin-top: 30px;
+        }
+        #delete {
+            margin-left: 20px;
+            color: red;
+        }
+        [name=logoSrc],
+        [name=heroSrc] {
+            min-width: 300px;
+        }
+        label {
+            display: block;
+            clear: both;
+            padding: 3px 0;
+            max-width: 290px;
+            font-size: 14px;
+            input[type=checkbox] {
+                margin-right: 10px;
+            }
+        }
+
+        .logoimg {
+            border: 1px solid #ddd;
+            display: block;
+            margin: 10px auto 0;
+        }
+
+        .uploadBox {
+            border:1px solid #ccc;
+            padding:10px;
+            margin:15px 0 ;
+            display:inline-block;
+        }
+    }
+    .message {
+        text-align: center;
+        background-color: #deffde;
+        padding: 10px;
+        font-size: 13px;
+    }
+    .error {
+        text-align: center;
+        background-color: #ffdede;
+        padding: 10px;
+        font-size: 13px;
+    }
+}

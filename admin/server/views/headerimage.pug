@@ -1,0 +1,27 @@
+extends ./template
+
+block scripts
+	script(src='/js/items.js')
+
+block header	
+	h1 Header Image
+
+block primaryControls
+	if (message)
+		p=message
+	img#header-image.header-image(src="http://visionwheel.s3.amazonaws.com/headerimage.jpg?cache=" + new Date().getTime())
+
+block main
+	form.header-image-form(
+		action="/headerimage"
+		enctype="multipart/form-data"
+		method="post"
+	)
+		input(
+			id="headerimg"
+			name="headerimg"
+			type="file"
+		)
+		input(
+			type="submit"
+		)

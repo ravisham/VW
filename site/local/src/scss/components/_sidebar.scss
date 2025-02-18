@@ -1,0 +1,11 @@
+.sidebar {
+  float: left;
+  @include rspw(215, $base);
+  max-width: none;
+  + .content {
+    float: right;
+    width: 100%;
+    @include rspw(725, $base);
+    max-width: none;
+  }
+}

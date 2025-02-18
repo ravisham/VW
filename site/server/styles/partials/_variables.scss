@@ -1,0 +1,92 @@
+// Base Colors
+$white: #ffffff;
+$black: #000000;
+
+// Colors
+$mine-shaft: #333333;
+$dove-gray: #666666;
+$silver: #cccccc;
+$dusty-gray: #999;
+$gallery: #ebebeb;
+$guardsman-red: #cc0000;
+$red-berry: #900;
+$lonestar: #600;
+$mailbu: #76d2f6;
+$steel-blue: #4495b5;
+$color-alto: #d7d7d7;
+$color-dusty-gray: #959595;
+$color-white: #fff;
+
+$text-color: $mine-shaft;
+$link-color: $guardsman-red;
+$link-color-hover: $red-berry;
+$link-color-active: $lonestar;
+
+$base-font-size: 16px;
+$base-font-weight: 400;
+$base-line-height: 24px;
+$image-path-prod: 'production-path-here';
+$image-path: $image-path-prod;
+$image-path: '../images/img';
+$svg-path: '../images/svg';
+$svg-path-white: '../images/svg/white';
+
+$roboto: 'Roboto';
+$rubik: 'Rubik';
+
+$primary-font-family: $roboto;
+$secondary-font-family: $rubik;
+$fallback: Helvetica, Arial, sans-serif;
+
+$base: 960;
+$desktop: 1440px;
+$laptop: 1024;
+$tablet: 768;
+$phablet: 667;
+$mobile: 480;
+
+$min: 'min-width';
+$max: 'max-width';
+
+$module-padding: 80px;
+$half-module-padding: $module-padding / 2;
+
+//
+// Easing Equations ported to CSS by @matthewlein - http://matthewlein.com/ceaser/
+// Converted to SCSS vars by @pettpett
+//
+
+// Default Equations
+$linear:         cubic-bezier(.25, .25, .75, .75);
+$ease:           cubic-bezier(.25, .1, .25, 1);
+$easeIn:         cubic-bezier(.42, 0, 1, 1);
+$easeOut:        cubic-bezier(0, 0, .58, 1);
+$easeInOut:      cubic-bezier(.42, 0, .58, 1);
+
+// Penner Equations (approximated) originally created by @robpenner
+$easeInQuad:     cubic-bezier(.55, .085, .68, .53);
+$easeInCubic:    cubic-bezier(.55, .055, .675, .19);
+$easeInQuart:    cubic-bezier(.895, .03, .685, .22);
+$easeInQuint:    cubic-bezier(.755, .05, .855, .06);
+$easeInSine:     cubic-bezier(.47, 0, .745, .715);
+$easeInExpo:     cubic-bezier(.95, .05, .795, .035);
+$easeInCirc:     cubic-bezier(.6, .04, .98, .335);
+$easeInBack:     cubic-bezier(.6, -.28, .735, .045);
+
+$easeOutQuad:    cubic-bezier(.25, .46, .45, .94);
+$easeOutCubic:   cubic-bezier(.215, .61, .355, 1);
+$easeOutQuart:   cubic-bezier(.165, .84, .44, 1);
+$easeOutQuint:   cubic-bezier(.23, 1, .32, 1);
+$easeOutSine:    cubic-bezier(.39, .575, .565, 1);
+$easeOutExpo:    cubic-bezier(.19, 1, .22, 1);
+$easeOutCirc:    cubic-bezier(.075, .82, .165, 1);
+$easeOutBack:    cubic-bezier(.175, .885, .32, 1.275);
+
+$easeInOutQuad:  cubic-bezier(.455, .03, .515, .955);
+$easeInOutCubic: cubic-bezier(.645, .045, .355, 1);
+$easeInOutQuart: cubic-bezier(.77, 0, .175, 1);
+$easeInOutQuint: cubic-bezier(.86, 0, .07, 1);
+$easeInOutSine:  cubic-bezier(.445, .05, .55, .95);
+$easeInOutExpo:  cubic-bezier(1, 0, 0, 1);
+$easeInOutCirc:  cubic-bezier(.785, .135, .15, .86);
+$easeInOutBack:  cubic-bezier(.68, -.55, .265, 1.55);

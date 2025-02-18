@@ -1,0 +1,110 @@
+extends ./template
+include ./itemTable
+
+block styles
+	link( href="/css/dealers.css" rel="stylesheet" type="text/css" )
+block scripts
+	script(src='/js/dealers.js')
+block header	
+	h1= mode + " Dealer"
+	
+block primaryControls	
+	a(href="/dealers") Back
+		
+block main
+	.dealerCreateDetails
+		-let dealerHasProfile = dealer.profile && dealer.profile.userCanEdit && dealer.profile.userCanEdit;
+
+		if ( dealer.disabled )
+			em This dealer is disabled.
+
+		if ( message ) 
+			p.message=message
+		form.adminForm(action="/dealers/" + mode.toLowerCase(), method="post")
+			dl
+				h4 Dealer Details
+				dt Company Name 
+				dd
+					input(type="text" name="company_name_1" required value=dealer.company_name_1)
+				dt Company Name 2
+				dd
+					input(type="text" name="company_name_2" value=dealer.company_name_2)
+				dt Account Number
+				dd
+					input(type="text" name="account_number" required value=dealer.account_number )
+				dt Nav Customer Id 
+				dd
+					input(type="text" name="nav_customer_id" required value=dealer.nav_customer_id)
+				dt Taxable Status
+					dd
+						label
+							input(type="checkbox" name="taxable" checked=(dealer.taxable !== false))
+							| Taxable
+
+				h4 User Permissions
+
+				dt Order Confirmation Email
+				dd
+					input(type="hidden" name="profile" value=dealer.profile)
+
+					label
+						input(type="checkbox" name="sendToUser" checked=(dealerHasProfile && dealer.profile.sendOrderEmailstoUser !== false) || mode === "Create") 
+						| Send to user's account email
+					label
+						input(type="checkbox" name="sendToDealer" checked=dealerHasProfile && dealer.profile.dealerEmail !== "") 
+						| Send to alternate dealer email :
+					input(type="text" name="order_confirmation_email" value=dealerHasProfile && dealer.profile.dealerEmail placeholder="Alternate Dealer Email")
+				dt
+				dt Update/Edit
+				dd
+					label
+						input(type="checkbox" name="userPermission_name"  checked=dealerHasProfile && dealer.profile.userCanEdit.contactDetails !== false) 
+						| Contact Details
+					label
+						input(type="checkbox" name="userPermission_login" checked=dealerHasProfile && dealer.profile.userCanEdit.login !== false) 
+						| Login
+					label
+						input(type="checkbox" name="userPermission_rep" checked=dealerHasProfile && dealer.profile.userCanEdit.salesRep !== false) 
+						| Sales Representative
+					label
+						input(type="checkbox" name="userPermission_addr" checked=dealerHasProfile && dealer.profile.userCanEdit.address !== false) 
+						| Address
+					label
+						input(type="checkbox" name="userPermission_loc" checked=dealerHasProfile && dealer.profile.userCanEdit.location !== false) 
+						| Default Location	
+				dt Shipping Address
+				dd
+					label
+						input(type="checkbox" name="userPermission_ship" checked=dealerHasProfile && dealer.profile.userCanEdit.shipping && dealer.profile.userCanEdit.shipping !== false)
+						| Users can modify shipping address
+				dt Shipping Info
+				dd
+					div
+					- console.log(dealer)
+					div
+
+					label(for="payment_option") Shipping Payment Options:
+						select(name="payment_option")
+							option(value="not selected" selected=dealer.payment_option=='not selected') Not Selected
+							option(value="prepaid" selected=dealer.payment_option=='prepaid') Prepaid
+							option(value="third party fedex" selected=dealer.payment_option=='third party fedex') Third Party FedEx
+							option(value="third party ups" selected=dealer.payment_option=='third party ups') Third Party UPS
+							option(value="freight collect" selected=dealer.payment_option=='freight collect') Freight Collect
+
+					label
+						| 3rd Party FedEx Account
+						input(type="text" name="fedex_account" value=dealerHasProfile && dealer.fedex_account placeholder="3rd Party Fedex Account")
+						
+					label
+						| 3rd Party UPS Account
+						input(type="text" name="ups_account" value=dealerHasProfile && dealer.ups_account placeholder="3rd Party UPS Account")
+
+			.submit 
+				- let buttonText = (mode === "Create") ? "Create Dealer" : "Save Updates"
+				input#update(type="submit", name="update" value=buttonText)
+
+				if ( mode === "Edit" && dealer_id )
+					input(type="hidden" name="id" value=dealer_id)
+					button#delete Disable Dealer
+					input(type="hidden" name="disable_user" value="false")
+					

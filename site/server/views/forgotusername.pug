@@ -1,0 +1,23 @@
+extends ./templates/layout
+
+block styles
+	link( href="/css/login.css" rel="stylesheet" type="text/css" )
+
+block main
+	.content
+		section.login
+			.login__state--forgot
+				form( method="POST" action="/forgot-username" class=classes ).login__form
+					.login__form__title
+						h1 Forgot User Name
+						- var classes = error?["error"] : []
+						if error
+							h2.error Couldnt find a user with that email. Please enter the email associated with your account.
+						if success
+							h2 Thank you! Please check your email for next steps.
+					.login__form__fields
+						.login__form__fields-field
+							label Please enter your associated email with your account
+							input(name="email" type="email" value="" placeholder="Enter Your Personal Email")
+					.login__form__submit
+						button(type="submit" class="cta cta--button") Submit

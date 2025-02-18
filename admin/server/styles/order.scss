@@ -1,0 +1,152 @@
+@import "./common.scss";
+@import "./modal.scss";
+
+.header {
+	box-sizing: border-box;
+	margin: 0 auto;
+	max-width: $tablet;
+	padding: 0 2rem 1rem;
+	h1 {}
+	.controls {
+		margin: 1rem 0 0;
+		button {}
+	}
+}
+
+#remove-order {
+	margin-left:10px;
+	color:red;
+}
+
+p.strong {
+	font-weight: bold;
+	font-size: 1rem;
+	margin-bottom: 0.5rem;
+	&.shipped {
+		color: $red;
+	}
+}
+.order{
+	font-size: 0.7rem;
+	.orderHeaderContainer, .orderPropsContainer {
+		background-color: $lightgrey;
+		margin-bottom: 1rem;
+	}
+	.orderHeader{
+		margin: 0 auto;
+		max-width: $tablet;
+		overflow: hidden;
+		box-sizing: border-box;
+		padding: 0 2rem;
+		.orderDate{
+			width: 65%;
+			float:left;
+		}
+		.orderTotal{
+			width: 35%;
+			float:left;
+		}
+	}						
+	.orderProps {
+		margin: 0 auto;
+		max-width: $tablet;
+		overflow: hidden;
+		box-sizing: border-box;
+		padding: 0 2rem;
+		.orderShippingInfo{
+			width: 65%;
+			float:left;
+		}
+		.orderNumbers {
+			width: 35%;
+			float:left;
+		}
+	}
+	.orderItems{
+		margin: 0 auto;
+		max-width: $tablet;
+		box-sizing: border-box;
+		padding: 0 2rem;
+		.orderItem{
+			overflow: hidden;
+			.productThumb{
+				max-width: 150px;
+				img{
+					width: 100%;		
+				}
+			}
+			.itemInfoContainer{
+				width: 50%;
+				float:left;
+				.itemInfo{
+					
+				}
+			}
+			.shippingStatusContainer{
+				width: 50%;
+				float:left;
+				.shippingStatus {
+					
+				}
+				.shippingMethod {
+					margin-top: 0.5rem;
+
+				}
+				.shippingInputs {
+					margin-top: 0.5rem;
+					p {
+						margin: 0;
+					}
+				}
+			}
+		}
+	}
+	.paymentDetailsContainer{
+		width: 100%;
+		.paymentDetails, form {
+			margin: 0 auto;
+			max-width: $tablet;
+			overflow: hidden;
+			box-sizing: border-box;
+			padding: 0 2rem;
+		}
+		p.strongLined {
+			font-weight: bold;
+			font-size: 1rem;
+			margin-bottom: 0.5rem;
+			color: $lightgrey;
+			text-decoration: underline;
+		}
+		p.strongLinedRed {
+			font-weight: bold;
+			font-size: 1rem;
+			margin-bottom: 0.5rem;
+			color: $red;
+			text-decoration: underline;
+		}
+		p.strong{
+			margin-top: 1rem;
+			margin-bottom: 0rem;
+		}
+		form {
+			.status span {
+				display: block;
+				font-size: 0.75rem;
+			}
+			input[type='submit'] {
+				margin: 1rem 0;
+				clear: both;
+				display: block;
+			}
+		}
+		.orderUpdateContainer{
+			overflow: hidden;
+			.charges, .statues {
+				float: left;
+				width: 50%;
+			}	
+		}
+		
+	}
+		
+}

@@ -1,0 +1,6 @@
+extends ./templates/layout
+
+block main
+	div#checkout
+		div#props( cart=cart, warehouses=warehouses, user=user, shippingOptions=shippingOptions )
+	#overlay

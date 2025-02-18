@@ -1,0 +1,45 @@
+extends ./template
+include ./itemTable
+
+mixin Images(list, wheel)
+	each img, i in list
+		if wheel
+			.img.finish
+				img(src=img.src)
+				p=img.finish
+		else
+			.img
+				img(src=img)
+
+
+block styles
+	link( href="/css/product.css" rel="stylesheet" type="text/css" )
+block scripts
+	script(src='/js/product.js')
+block header	
+	h1 Create Product
+	a(href="/products") Back
+		
+block main
+	form(action="/products/create", method="post")
+		.productCreateDetails
+			p.strong Name
+			input(type="text" name="name" value="")
+			p.strong Description
+			textarea(type="text" name="description" rows=10, cols=50)=""
+			p.strong Product Type
+			select(name='type')
+				option(value='wheel') Wheel
+				option(value='tire') Tire
+				option(value='accessory') Accessory
+			p.strong Brand
+			select(name='brand')
+				each brand in brands.filter(brand => brand.disabled !== true)
+					option(value=brand.id)=brand.name
+		if (parts)
+			.productItems
+				p.strong= "Select Part Numbers ("+parts.length+")"
+				p Check applicable from these available parts and create the product from bottom of page
+				+ItemTable(parts, "items")
+		p
+			input#update(type="submit", name="update" value="Create Product")

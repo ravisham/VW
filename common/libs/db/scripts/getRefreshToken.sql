@@ -1,0 +1,1 @@
+SELECT access_token, access_token_expires_on, client_id, refresh_token, refresh_token_expires_on, user_id FROM public.oauth_tokens WHERE refresh_token = $1

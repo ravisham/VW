@@ -1,0 +1,69 @@
+extends ./template
+include ./_mixins
+
+block styles
+	link( href="/css/dealers.css" rel="stylesheet" type="text/css" )
+block scripts
+	script(src='/js/dealers.js')
+block header	
+	h1 Dealer Management
+block primaryControls
+	.primaryControl.productHeader
+			a(href="/dealers/create") Create Dealer
+
+	.primaryControl.productName
+		
+block main
+	if dealers
+		.dealersContainer
+			if ( message ) 
+				p.message=message
+				
+			#sortableTable
+				.adminTableControls
+					.left
+						input(class="search" placeholder="Search dealers")
+					.right
+						p.total= dealers.length.toLocaleString() + " Dealers"
+						#statusToggle
+							label
+								input(type="checkbox").statusToggle
+								| Show Disabled Dealers	
+				table#dealerListTable.adminTable
+					thead
+						tr
+							th.sort(data-sort="name") 
+								span Name
+							th.sort(data-sort="taxable") 
+								span Taxable
+							th.sort(data-sort="nav_customer_id") 
+								span Nav Id
+							th.sort(data-sort="account_number") 
+								span Account Number
+							th.sort(data-sort="created") 
+								span Created
+							th.sort(data-sort="updated") 
+								span Updated
+							th 
+								span Edit
+					tbody.list
+						each dealer in dealers
+							tr(class=dealer.disabled ? "disabled" : null)
+								td.name
+									strong= dealer.disabled ? "Disabled -" : ""
+									span=dealer.company_name_1
+									if ( dealer.company_name_2 ) 
+										br
+										em= dealer.company_name_2
+								//- td.status= dealer.status
+								td.taxable= dealer.taxable
+								//- td.payment_method= dealer.payment_method
+								td.nav_customer_id= dealer.nav_customer_id
+								td.account_number= dealer.account_number
+								td.created
+									+dateformat(dealer.created)
+								td.updated
+									+dateformat(dealer.updated)
+								td.edit
+									a(href="/dealers/" + dealer.id) Edit
+							

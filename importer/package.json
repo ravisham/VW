@@ -1,0 +1,82 @@
+{
+  "name": "importer",
+  "version": "0.1.0",
+  "description": "\"VW Importer CLI\" on Steroids. Pull data from MSSQL Nav DB and updates our Postgres DB.",
+  "main": "server.js",
+  "author": "Joaquin Briceno",
+  "license": "ISC",
+  "config": {
+    "port": "8080",
+    "path": "./"
+  },
+  "engines": {
+    "node": ">=7.10.0",
+    "npm": "~4.5.0"
+  },
+  "scripts": {
+    "env": "env",
+    "inspector": "./node_modules/.bin/node-inspector",
+    "start": "node server.js",
+    "update": "node util/index.js",
+    "update:prod": "NODE_ENV=production nod e util/index.js",
+    "start:debug": "node --inspect server.js",
+    "start:debug-brk": "node --inspect-brk server.js",
+    "start:devtool": "devtool server.js",
+    "start:devtool-brk": "devtool server.js --break",
+    "fetch:items": "NODE_ACTION=fetch-items DEBUG=* npm start",
+    "fetch:stock": "NODE_ACTION=fetch-stock DEBUG=* npm start",
+    "fetch:stock:debug": "NODE_ACTION=fetch-stock DEBUG=* npm run start:debug",
+    "import:items": "NODE_ACTION=import-items DEBUG=* npm start",
+    "import:items:debug": "NODE_ACTION=import-items DEBUG=* npm run start:debug",
+    "import:items:debug-brk": "NODE_ACTION=import-items DEBUG=* npm run start:debug-brk",
+    "import:items:prod": "NODE_ENV=production NODE_ACTION=import-items DEBUG=* npm start",
+    "import:stock": "NODE_ACTION=import-stock DEBUG=* npm start",
+    "import:stock:prod": "NODE_ENV=production NODE_ACTION=import-stock DEBUG=* npm start",
+    "import:stock:debug": "NODE_ACTION=import-stock DEBUG=* npm run start:debug",
+    "import:stock:debug-brk": "NODE_ACTION=import-stock DEBUG=* npm run start:debug-brk",
+    "import:dtc-users": "NODE_ENV=production NODE_ACTION=import-dtc-users DEBUG=* npm start",
+    "import:dtc-users:debug": "NODE_ACTION=import-dtc-users DEBUG=* npm run start:debug",
+    "import:dtc-users:devtool": "NODE_ACTION=import-dtc-users DEBUG=* npm run start:devtool",
+    "import:dtc-users:devtool-brk": "NODE_ACTION=import-dtc-users DEBUG=* npm run start:devtool-brk",
+    "test": "mocha",
+    "test:parser": "NODE_ACTION=test-parser DEBUG=* npm start",
+    "test:fetch:item": "NODE_ACTION=test-fetch-item DEBUG=* npm start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@int-gitlab.aws.lbox.com:Mirum/vision-wheel-dealers.git"
+  },
+  "keywords": [
+    "vision",
+    "wheel",
+    "dealers"
+  ],
+  "dependencies": {
+    "config": "^1.25.1",
+    "csv": "^1.1.1",
+    "debug": "^2.6.4",
+    "helprs": "^0.20.2",
+    "immutable": "^3.8.1",
+    "immutable-devtools": "0.0.7",
+    "js-yaml": "^3.8.3",
+    "jwt-simple": "^0.5.1",
+    "massive": "^2.6.0",
+    "mssql": "^4.0.3",
+    "q": "^1.5.0",
+    "readable-stream": "^2.2.9",
+    "touch": "^3.1.0",
+    "underscore": "^1.8.3"
+  },
+  "devDependencies": {
+    "aws-sdk": "^2.49.0",
+    "chai": "^3.5.0",
+    "grunt": "^1.0.2",
+    "grunt-contrib-watch": "^1.0.1",
+    "grunt-jsdoc": "^2.2.1",
+    "ink-docstrap": "^1.3.2",
+    "istanbul": "^0.4.5",
+    "load-grunt-tasks": "^4.0.0",
+    "mocha": "^3.4.1",
+    "node-inspector": "^1.1.1"
+  }
+}

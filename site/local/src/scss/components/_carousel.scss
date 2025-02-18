@@ -1,0 +1,10 @@
+.carousel {
+  &__items {
+    &__item {
+      border: 1px solid $silver;
+    }
+  }
+  + .featured-content {
+    margin-top: 40px;
+  }
+}

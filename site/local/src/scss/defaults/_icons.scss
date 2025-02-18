@@ -1,0 +1,46 @@
+// uses png fallback if svg not supported*
+// *support is checked by detecting if multiple background images are supported
+@mixin background-icon($name, $white: false, $svg: true) {
+  $fallback-extension: 'png' !default;
+  background-image: url("#{$image-path}/#{$name}.#{$fallback-extension}");
+  @if $svg == true {
+    @if $white == true {
+      background-image: url("#{$svg-path-white}/#{$name}.svg"), none;
+    } @else {
+      background-image: url("#{$svg-path}/#{$name}.svg"), none;
+    }
+  }
+  display: inline-block;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  @content;
+}
+
+.icon {
+  width: 100%;
+  height: 100%;
+  &--container {
+    display: inline-block;
+    vertical-align: top;
+    width: 70px;
+    height: 70px;
+  }
+}
+
+
+// @key = class name
+// @value = svg file name
+$icons: (
+  'class-name': 'file-name'
+);
+
+// @icon = @key
+// @name = @value
+// uses the placeholders above so it can also add the correct bg size for the @2x fallback image
+@each $icon, $name in $icons {
+  $name: map-get($icons, $icon);
+  .icon--#{$icon} {
+    @include background-icon($name);
+  }
+}

@@ -1,0 +1,42 @@
+extends ./template
+
+include ./itemTable
+
+block styles
+	link( href="/css/items.css" rel="stylesheet" type="text/css" )
+block scripts
+	script(src='/js/items.js')
+	script.
+		document.getElementById("delete").onclick = function(e){
+			e.preventDefault();
+			document.getElementById("action").setAttribute('value', 'delete');
+			document.getElementById("items").submit();
+		};
+
+block header	
+	h1 Part Numbers
+
+block primaryControls
+	p.strong Associate orphaned part numbers to products
+	p Below you will find newly imported part number without any associated products attached. Select the part numbers you will like to add and the desired product below.
+
+block main
+	form#items(action='/products/items', method="post")
+		.items
+			p.strong Part Numbers
+			+ItemTable(items, "items")
+		.productAssociationContainer
+			.productAssociation
+				p.strong Associate a Product
+				p
+					select(name='product')
+						option Please Select a product
+						each product in products
+							option(value=product.id)=product.name
+				p
+					input(type='submit')
+		.productDeleteContainer
+			h2 Warning: Delete Item
+			p You can clear out outdated items. If Items still exist in nav they will be reimported later.
+			input#action(type="hidden", name="action")
+			input#delete(type="submit", value="Delete Selected Items")

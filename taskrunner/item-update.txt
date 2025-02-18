@@ -1,0 +1,20 @@
+This file is 'touched' each time an item stock level is updated.
+If it ever gets more than about 12 hours old, it's a sign something has gone wrong.
+
+
+Test123!
+
+
+I am well aware of some of the shortcomings of project management within this team, but I feel that the help from the company has been very lacking, particularly on the diversified and legacy Traffic projects where I have spent much of my time. Steve, I regret that we never had much opportunity to connect directly, I feel that it was clear that we needed some help in team leadership, but I was never clear on what my part in this was.
+
+Although I know there has been much more scrutiny on our projects, I still certainly find this decision surprising. My work has very often been cited as going above and beyond expectations. I have made many efforts to be a reliable contact and quick to respond to any development questions that arise.
+
+My role on the Shelving project has never been clearly defined, I have had experience with the client and an eye for detail but I feel that it is very unfair that my entire job performance is being judged on this project, particularly given my history of positive performance evaluations. I am often contacted directly by clients and they expect the level of detail and effort that I can provide.
+
+A large part of the delay on Shelving was due to a redesign effort, which I know was entirely outside my control. I was hoping to embrace the transition to a sprint process but felt that it was implemented too quickly and without much effort to understand the context of the project. I know that I often expressed challenges to some of the assumptions made, but these were in the interest of trying to facilitate a better understanding of priorities. A great amount of time, particularly in the first month (March 2024), was taken up by administrative time in helping to set up the Jira sprints, which should be clear in my hours logged.
+
+The termination section of the Employee Handbook provides a clear process for warnings and performance improvement prior to termination. Understandably this is not required, and severance pay is being offered, but this decision goes well against the expectations I had of how this decision could have been made, and I am at a disadvantage in lost time looking for other opportunities because of how unaware I was that my position was at risk.
+
+I have generally found the company culture to be very positive and often considered identifying other positions within the company, rather than looking elsewhere, at times when I was frustrated with our current projects and team leadership.
+
+At this point, I hope you understand that I have mixed feelings about even wanting to stay with this company given how decisions have recently been made, but I do feel that my presence in good standing would be a benefit to the team if that is still an option.

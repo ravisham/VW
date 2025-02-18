@@ -1,0 +1,83 @@
+importer:
+  title: 'importer'
+  tableSchema: 'public'
+  tableName: 'item'
+
+tracking_importer:
+  title: 'tracking_importer'
+  tableSchema: 'sales'
+  tableName: 'sale'
+
+database:
+  client: 'postgres'
+  username: 'postgres_admin'
+  password: 'pCZJlJFCz3'
+  host: 'upgrade-test.c9cwsjkyspvd.us-east-1.rds.amazonaws.com'
+  name: 'visionwheeldealers'
+  port: 5432
+  max: 10
+  idleTimeoutMillis: 30000
+  defaults:
+    parseInputDatesAsUTC: true
+
+mssql:
+  client: 'mssql'
+  username: 'dbadmin'
+  password: 'VWQAuwQl9UqDTXpN'
+  host: 'ec2-18-209-91-76.compute-1.amazonaws.com'
+  name: 'NAV-Ecomsub'
+  port: 1433
+  connectionTimeout: 60000
+
+parser:
+  highlevel:
+    - Part Number
+    - Type
+  specifications:
+    exclude:
+      - Base Unit of Measure
+      - Description
+      - Discontinued
+      - Finsih Code
+      - Finish Code
+      - Finish Description
+      - Item No_
+      - Item No_ 2
+      - Product Type
+      - Sale Unit of Measure
+      - timestamp
+  mappings:
+    keys:
+      - [Description 2, Cap Bore Load]
+      - [Finish Description, Finish]
+      - [Inventory Posting Group, Type]
+      - [Item No_, Part Number]
+      - [Item No_ 2, Size]
+    values:
+      - [ACCESS, accessory]
+      - [WHL, wheel]
+      - [TIRE, tire]
+      - [PACKAGES, package]
+  comparison:
+    assign: ['product_id', 'upc', 'image']
+    remove: ['inventory']
+  srcdata:
+    dir: 'src'
+    users:
+      dtc: 'dtc_users.csv'
+      generic: 'users.csv'
+      Shipping Config:
+        defaultLocationCode: 0
+      exclude:
+        - Dealer/Customer No.
+        - Site ID/Ship-to Code
+        - Password
+        - Phone
+        - Preffered Location
+      mappings:
+        keys:
+          - [Dealer/Customer No., Dealer ID]
+          - [Site ID/Ship-to Code, Store Number]
+          - [Password, Password Hash]
+          - [Phone, Phone Number]
+          - [Preffered Location, Shipping Config]

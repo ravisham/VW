@@ -1,0 +1,212 @@
+extends ./template
+include ./_mixins
+
+
+mixin shipping(agentCode, methodCode)
+	-	var method
+	-	method = (methodCode.toLowerCase()=="standard")? "(Standard Ground)": method
+	-	method = (methodCode.toLowerCase()=="ltl")? "(LTL)": method
+	-	method = (methodCode.toLowerCase()=="expedited")? "(Expedited)": method
+	-	method = (methodCode.toLowerCase()=="delivery")? "Delivery:": method
+	-	method = (methodCode.toLowerCase()=="dropship")? "Dropship:": method
+
+	h3 Agent
+	select(name='shipping_agent')
+		option(value='FEDEX' selected=(agentCode.toLowerCase()=="fedex")) FEDEX
+		option(value='UPS' selected=(agentCode.toLowerCase()=="ups")) UPS
+		option(value='DELIVERY' selected=(agentCode.toLowerCase()=="delivery")) DELIVERY
+
+	h3 Method
+	p=method
+
+mixin cost(prop)
+	span= "$"+(prop?prop.toFixed(2):"0.00")
+mixin inputPrice(prop, name)
+	input(value=(prop?prop.toFixed(2):"0.00"), name=name)&attributes(attributes)
+
+block styles
+	link( href="/css/order.css" rel="stylesheet" type="text/css" )
+block scripts
+	script(src='/js/order.js')
+block header	
+	h1 Order Details
+	.controls
+		button#emails(value="") Send Email Notifications
+		button#remove-order(value=order.id) Remove Order
+block primaryControls
+
+block main
+	.orderContainer
+		.order
+			.orderHeaderContainer
+				.orderHeader
+					.orderDate
+						p.strong Order Placed
+						p
+							+dateformat(order.created)
+					.orderTotal
+						p.strong Total
+						p
+							+cost(order.total_invoice_amount)
+			.orderPropsContainer
+				.orderProps
+					.orderShippingInfo
+						p.strong Shipped To:
+						p= order.customer_billing_info.customer_name
+						p= order.customer_billing_info.company_name
+						p= order.ship_to_info.address_1
+						p= order.ship_to_info.address_2
+						p= order.ship_to_info.city+", "+order.ship_to_info.state+" "+order.ship_to_info.zip
+						p #{order.customer_info.email} / #{order.customer_info.phone}
+					.orderNumbers
+						p.strong Purchase Order #: #{order.po_number}
+						p Web Order Number #: #{order.web_order_number}
+			.orderItems
+				- var index = 0
+				- let lastKey
+				each item, key in order.sale_items
+					//- - console.log(item, "ITEM")
+					//- - console.log(order, "ORDER")
+					- lastKey = key
+					- index++
+					- var imgsrc = (item.item_description.image) ? item.item_description.image : item.item_no !== 'INSTALL-KIT' ? "https://placehold.it/128x128" : null
+					.orderItem
+						if item.shipping_options.shipped
+							p.strong.shipped="Item #"+index+" - SHIPPED"
+						else 
+							p.strong="Item #"+index
+						.productThumb
+							img(src=imgsrc)
+						.itemInfoContainer
+							.itemInfo
+								p.strong=item.item_description.product_name
+								p="Part Number: "+item.item_no
+								p="Size: "+ item.item_description.size
+								p="Qty: "+ item.qty
+								p=item.unit_price+" each"
+						.shippingStatusContainer
+							.shippingStatus
+								p.strong Shipping From
+								p= item.fulfilment_location.name
+								p= item.fulfilment_location.address
+								p= item.fulfilment_location.city+", "+item.fulfilment_location.state+" "+item.fulfilment_location.postal
+							.shippingMethod
+								p.strong Shipping Method
+								form(action="/order/"+order.id, method="POST")
+									if (item.shipping_options.shipping_method==="pickup" || item.shipping_options.shipping_method==="CPU")
+										p Vision Wheel - Pickup
+										p.small Please call the #{ item.fulfilment_location.name } to schedule your pick up.
+									else
+										+shipping(item.shipping_options.shipping_agent, item.shipping_options.shipping_method)
+										input(type='text' name='shipping_method' placeholder=`${item.shipping_options.eship_agent_service_code}`)
+										- var thrdParty = item.shipping_options.third_party_account_number
+										if (thrdParty && thrdParty.length>0)
+											p="Account Number: "+thrdParty
+									.shippingInputs
+										input(type="hidden" name="action" value="updateSaleItem")
+										input(type="hidden" name="saleLineId" value=key)
+										p
+											label(for='shipped').itemShipped Shipped:
+												input(type='checkbox' name='shipped' checked=item.shipping_options.shipped )
+										p
+											label.itemTrackingNo Tracking No: 
+												input(type='text' name='tracking_number' value=item.shipping_options.tracking_number)
+										input(type='submit' value='Apply Shipping Status Updates')
+						//- p= JSON.stringify(item)
+				.orderVehicleInfo 
+						//- - console.log(lastKey, "CURRENT KEY")
+						//- - console.log(order.sale_items[lastKey], "ORDER SALE ITEM")
+						if order.sale_items[lastKey].vehicle_info === null || order.sale_items[lastKey].vehicle_info === undefined
+							p.strong="No Vehicle Information Provided"
+						else 
+							.vehicleInfoContainer
+								.vehicleInfo
+									p.strong Vehicle Information
+									p="Make: "+order.sale_items[lastKey].vehicle_info.vehicleMake
+									p="Model: "+order.sale_items[lastKey].vehicle_info.vehicleModel
+									p="Year: "+order.sale_items[lastKey].vehicle_info.vehicleYear
+									p="Trim: "+order.sale_items[lastKey].vehicle_info.vehicleTrim
+									p="VIN: "+order.sale_items[lastKey].vehicle_info.VIN
+					
+			.paymentDetailsContainer
+				.paymentDetails
+					p.strongLined Payment Details
+					p.strong Payment Method:
+					if order.payment.payment_method=='CHARGE'
+						p Charge to Account: 
+							span= order.customer_id
+					else if order.payment.payment_method.indexOf('CREDIT')>=0
+						p Credit Card: 
+							span= order.payment.CCInfo
+				form(action="/order/"+order.id, method="POST")
+					input(type="hidden" name="action" value="updateSale")
+					.orderUpdateContainer
+						.charges
+							if order.payment.paid
+								p.strongLinedRed Paid
+							else
+								p.strongLined Charges
+							p.strong Subtotal:
+								+inputPrice(order.subtotal_amount)(class="subtotal_amount", disabled)
+								+inputPrice(order.subtotal_amount, "subtotal_amount")(class="subtotal_amount", type="hidden")
+							p.strong Shipping:
+								+inputPrice(order.freight_total, "freight_total")(class="freight_total")
+							p.strong Discount:
+								+inputPrice(order.total_discount_amount, "total_discount_amount")(class="total_discount_amount")
+							p.strong Tax:
+								+inputPrice(order.tax_amount, "tax_amount")(class="tax_amount")
+							p.strong Total:
+								+inputPrice(order.total_invoice_amount)(class="total_invoice_amount", disabled)
+								+inputPrice(order.total_invoice_amount, "total_invoice_amount")(class="total_invoice_amount", type="hidden")
+						.status
+							p.strongLined Payment Status
+							p
+								label(for='payable').payable Payable:
+									input(type='checkbox' name='payable' checked=order.payment.payable )
+								span Check this if Order's charges are accurate. Allows user to pay Order on website.
+							p
+								label(for='paid').paid Paid:
+									input(type='checkbox' name='paid' checked=order.payment.paid )
+								span Marks order as paid.
+							p
+								label(for="status").status Order Status:
+									select(name="status")
+										option(value="submitted" selected=order.status=='submitted') Submitted
+										option(value="processing" selected=order.status=='processing') Processing
+										option(value="ready for pickup" selected=order.status=='ready for pickup') Ready For Pickup
+										option(value="picked up" selected=order.status=='picked up') Picked Up
+										option(value="complete" selected=order.status=='complete') Complete
+								span Indicates status of Order to user in 'Order History'
+					input(type='submit' value='Apply Charge and Payment Status Updates')
+		if error
+			.error=error
+block modals
+	#overlay
+	#emailNotificationsContainer(data-orderId=order.id)
+		.emailNotifications
+			.exit X
+			.shipping
+				h2 Send Item Shipped Notification
+				p Which Items where shipped?
+				- var index = 0
+					each item, key in order.sale_items
+						- index++
+						label Item ##{index}
+							input(type="checkbox" name="itemNo[]" value=index)
+				button Send Notification
+				.alert
+			.complete
+				h2 Send Item Shipping Complete Notification
+				p Which Items where shipped?
+				- var index = 0
+					each item, key in order.sale_items
+						- index++
+						label Item ##{index}
+							input(type="checkbox" name="itemNo[]" value=index)
+				button Send Notification
+				.alert
+			.payment
+				h2 Send Order Payment Notification
+				button Send Notification
+				.alert
+

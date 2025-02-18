@@ -1,0 +1,237 @@
+{
+  "delivery_options": [
+    {
+      "name": "UPS",
+      "id": 1,
+      "methods": [
+        {
+          "id": "01",
+          "name": "NEXT DAY AIR",
+          "type": "DELIVERY",
+          "shipping_cost": 109.41,
+          "worldwide_service": "no",
+          "rate_shop": "yes",
+          "delivery_date": ""
+        },
+        {
+          "id": "02",
+          "name": "2ND DAY AIR",
+          "type": "DELIVERY",
+          "shipping_cost": 109.41,
+          "worldwide_service": "no",
+          "rate_shop": "yes",
+          "delivery_date": ""
+        },
+        {
+          "id": "59",
+          "name": "2ND DAY AIR A.M.",
+          "type": "DELIVERY",
+          "shipping_cost": 129.41,
+          "worldwide_service": "no",
+          "rate_shop": "no",
+          "delivery_date": ""
+        },
+        {
+          "id": "999",
+          "name": "2ND DAY AIR PR",
+          "type": "DELIVERY",
+          "shipping_cost": 100.41,
+          "worldwide_service": "no",
+          "rate_shop": "no",
+          "delivery_date": ""
+        },
+        {
+          "id": "12",
+          "name": "3 DAY SELECT",
+          "type": "DELIVERY",
+          "shipping_cost": 89.41,
+          "worldwide_service": "no",
+          "rate_shop": "no",
+          "delivery_date": ""
+        },
+        {
+          "id": "08",
+          "name": "EXPEDITED CANADA",
+          "type": "DELIVERY",
+          "shipping_cost": 129.41,
+          "worldwide_service": "no",
+          "rate_shop": "no",
+          "delivery_date": ""
+        },
+        {
+          "id": "07",
+          "name": "EXPRESS",
+          "type": "DELIVERY",
+          "shipping_cost": 100.41,
+          "worldwide_service": "no",
+          "rate_shop": "no",
+          "delivery_date": ""
+        },
+        {
+          "id": "54",
+          "name": "EXPRESS PLUS",
+          "type": "DELIVERY",
+          "shipping_cost": 89.41,
+          "worldwide_service": "no",
+          "rate_shop": "no",
+          "delivery_date": ""
+        },
+        {
+          "id": "03",
+          "name": "GROUND",
+          "type": "DELIVERY",
+          "shipping_cost": 109.41,
+          "worldwide_service": "no",
+          "rate_shop": "yes",
+          "delivery_date": ""
+        },
+        {
+          "id": "111",
+          "name": "GROUND PR",
+          "type": "DELIVERY",
+          "shipping_cost": 129.41,
+          "worldwide_service": "no",
+          "rate_shop": "no",
+          "delivery_date": ""
+        },
+        {
+          "id": "15",
+          "name": "NEXT DAY AIR EARLY",
+          "type": "DELIVERY",
+          "shipping_cost": 100.41,
+          "worldwide_service": "no",
+          "rate_shop": "no",
+          "delivery_date": ""
+        },
+        {
+          "id": "222",
+          "name": "NEXT DAY AIR EARLY A.M.",
+          "type": "DELIVERY",
+          "shipping_cost": 89.41,
+          "worldwide_service": "no",
+          "rate_shop": "no",
+          "delivery_date": ""
+        },
+        {
+          "id": "333",
+          "name": "NEXT DAY AIR PR",
+          "type": "DELIVERY",
+          "shipping_cost": 109.41,
+          "worldwide_service": "no",
+          "rate_shop": "no",
+          "delivery_date": ""
+        },
+        {
+          "id": "13",
+          "name": "NEXT DAY AIR SAVER",
+          "type": "DELIVERY",
+          "shipping_cost": 129.41,
+          "worldwide_service": "no",
+          "rate_shop": "no",
+          "delivery_date": ""
+        },
+        {
+          "id": "04",
+          "name": "SAVER",
+          "type": "DELIVERY",
+          "shipping_cost": 89.41,
+          "worldwide_service": "no",
+          "rate_shop": "no",
+          "delivery_date": ""
+        }
+      ]
+    },
+    {
+      "name": "FEDEX",
+      "id": 2,
+      "methods": [
+        {
+          "id": "03",
+          "name": "2DAY",
+          "type": "DELIVERY",
+          "shipping_cost": 129.41,
+          "worldwide_service": "no",
+          "rate_shop": "yes",
+          "delivery_date": ""
+        },
+        {
+          "id": "999",
+          "name": "ECONOMY",
+          "type": "DELIVERY",
+          "shipping_cost": 100.41,
+          "worldwide_service": "no",
+          "rate_shop": "yes",
+          "delivery_date": ""
+        },
+        {
+          "id": "20",
+          "name": "EXPRESS SAVER",
+          "type": "DELIVERY",
+          "shipping_cost": 100.41,
+          "worldwide_service": "no",
+          "rate_shop": "no",
+          "delivery_date": ""
+        },
+        {
+          "id": "06",
+          "name": "FIRST OVERNIGHT",
+          "type": "DELIVERY",
+          "shipping_cost": 89.41,
+          "worldwide_service": "no",
+          "rate_shop": "no",
+          "delivery_date": ""
+        },
+        {
+          "id": "92",
+          "name": "GROUND SERVICE",
+          "type": "DELIVERY",
+          "shipping_cost": 109.41,
+          "worldwide_service": "no",
+          "rate_shop": "yes",
+          "delivery_date": ""
+        },
+        {
+          "id": "90",
+          "name": "HOME DELIVERY",
+          "type": "DELIVERY",
+          "shipping_cost": 109.41,
+          "worldwide_service": "no",
+          "rate_shop": "yes",
+          "delivery_date": ""
+        },
+        {
+          "id": "01",
+          "name": "PRIORITY",
+          "type": "DELIVERY",
+          "shipping_cost": 129.41,
+          "worldwide_service": "no",
+          "rate_shop": "yes",
+          "delivery_date": ""
+        },
+        {
+          "id": "05",
+          "name": "STANDARD OVERNIGHT",
+          "type": "DELIVERY",
+          "shipping_cost": 100.41,
+          "worldwide_service": "no",
+          "rate_shop": "yes",
+          "delivery_date": ""
+        }
+      ]
+    },
+    {
+      "name": "DELIVERY",
+      "id": 3,
+      "methods": [
+        {
+          "id": "01",
+          "name": "DELIVERY",
+          "type": "DELIVERY",
+          "shipping_cost": 0,
+          "worldwide_service": "no",
+          "delivery_date": ""
+        }
+      ]
+    }
+  ]
+}

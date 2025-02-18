@@ -1,0 +1,245 @@
+.filter-results {
+	width: 100%;
+  &__title {
+    @include font-size(16, initial, 60);
+    text-transform: uppercase;
+    @extend %RubikMedium;
+    text-decoration: underline;
+  }
+  &__note {
+    width:215px;
+    font-size:10px;
+    line-height: 14px;
+    margin-top:5px;
+  }
+  &__content {
+    // overflow-x: auto;
+    table {
+      width: 100%;
+      thead {
+        tr {
+          th {
+            @extend %Rubik;
+            @include font-size(10, initial, 18);
+            color:#000;
+            font-size:10px;
+            padding: 10px 7px;
+            text-align: center;
+            white-space: nowrap;
+            &.qty {
+              padding: 10px 7px 10px 7px;
+            }
+            &:first-child {
+              padding: 10px 7px 10px 7px;
+              text-align: left;
+            }
+            &:last-child {
+              padding: 0 0 0 0;
+            }
+          }
+        }
+      }
+      tbody {
+        color: $black;
+        tr {
+          border-left: 1px solid $silver;
+          height: 22px;
+          td {
+            @include font-size(9, initial, 20);
+            border-bottom: 1px solid $silver;
+            border-top: 1px solid $silver;
+            overflow: hidden;
+            padding: 1px 7px;
+            text-align: center;
+            vertical-align: middle;
+            white-space: nowrap;
+            max-width: 123px;
+            font-weight: 500;
+            a {
+              text-decoration: underline;
+              font-weight: 500;
+            }
+            select {
+              text-align: center;
+              width: 110px;
+              font-size: 9px;
+            }
+            &.qty {
+              padding: 1px 7px 1px 7px;
+              input {
+                background-color: $white;
+                border: 1px solid $silver;
+                height: 18px;
+                text-align: center;
+                width: 30px;
+                margin: 0 auto;
+              }
+            }
+            .qty_disabled {
+              opacity: .5;
+            }
+            &:first-child {
+              padding: 1px 7px 1px 7px;
+              text-align: left;
+            }
+            &:last-child {
+              background-color: $white;
+              border-bottom: none;
+              border-left: 1px solid $silver;
+              border-top: none;
+              padding: 0 0 0 4px;
+              .cta {
+                display: block;
+                height: 22px;
+                padding: 0 0 0 0;
+                width: 50px;
+                margin: 0 auto;
+                &.add-to-cart {
+                  .copy {
+                    padding: 0.25rem 0;
+                  }
+                  .icons {
+                    .icon {
+                      height: 1rem;
+                      width: 1rem;
+                      &.loading-icon {
+                        height: 1.25rem;
+                        width: 1.25rem;
+                      }
+                    }
+                  }
+                }
+                &.call-to-order {
+                  background-color: $mine-shaft;
+                  border: 1px solid $mine-shaft;
+                }
+              }
+            }
+          }
+          &.spacer {
+            border-left: none;
+            height: 6px;
+          }
+          &:nth-child( 4n + 1 ) {
+            background-color: #e7e7e7;
+          }
+          &:nth-child( 4n + 3 ) {
+            background-color: $white;
+          }
+        }
+      }
+    }
+  }
+  &__result {
+  	margin: 3rem 0 0 0;
+    text-align: left;
+    &--product-info {
+    	width: 100%;
+      .image {
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 5px;
+        img {
+          max-height: 62px;
+          max-width: 62px;
+          width: auto;
+        }
+      }
+      .text {
+        @extend %Rubik;
+        @include font-size(10, initial, 18);
+        display: inline-block;
+        text-align: left;
+        vertical-align: middle;
+        .product-name {
+          text-decoration: underline;
+        }
+      }
+    }
+    &--footer {
+      border-bottom: 1px solid $silver;
+      td {
+        padding: 12px 0;
+      }
+      .current-visible {
+        @extend %Rubik;
+        @include font-size(10, initial, 18);
+        color: $mine-shaft;
+        display: block;
+        text-align: left;
+      }
+    	.menu {
+        text-align: center;
+        a {
+          @extend %Rubik;
+          @include font-size(10, initial, 18);
+          border-right: 2px solid $silver;
+          color: $guardsman-red;
+          margin: 0 0.5rem 0 0;
+          padding: 0 0.5rem 0 0;
+          text-decoration: underline;
+          &:last-child {
+            border-right: none;
+            margin: 0 0 0 0;
+            padding: 0 0 0 0;
+          }
+          &.showLess {
+            // &::after {
+            //   content: "|";
+            //   color: $dusty-gray;
+            //   display: inline-block;
+            //   padding-left: 20px;
+            // }
+          }
+          &.showMore {
+          }
+        }
+    	}
+    }
+    &:last-child {
+      &--footer {
+        border-bottom: none;
+      }
+    }
+  }
+  &.hidden {
+    display: none;
+  }
+}
+
+.no-results {
+  font-size: 11px;
+
+  &__description {
+    font-weight: 500;
+    padding: 30px 0 ;
+  }
+  &__subtitle {
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  &__list {
+    list-style: disc;
+    margin: 0 0 25px 15px;
+  }
+  &__list-item {
+    margin-bottom: 5px;
+    font-weight: 500;
+  }
+}
+.suggestions {
+  float: left;
+  margin-right: 25px;
+
+  &__title {
+    color: $guardsman-red;
+    margin-bottom: 8px;
+  }
+  &__list-item {
+    margin-bottom: 8px;
+  }
+  &__link {
+    text-decoration: underline;
+  }
+}

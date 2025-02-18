@@ -1,0 +1,157 @@
+extends ./template
+include ./_mixins
+
+
+mixin shipping(agentCode, methodCode)
+	
+	-	var method
+	-	method = (methodCode.toLowerCase()=="standard")? "(Standard Ground)": method
+	-	method = (methodCode.toLowerCase()=="ltl")? "(LTL)": method
+	-	method = (methodCode.toLowerCase()=="expedited")? "(Expedited)": method
+	h3 Agent
+	select(name='shipping_agent')
+		option(value='FEDEX' selected=(agentCode.toLowerCase()=="fedex")) FEDEX
+		option(value='UPS' selected=(agentCode.toLowerCase()=="ups")) UPS
+	h3 Method	
+	p=method
+mixin cost(prop)
+	span= "$"+(prop?prop.toFixed(2):"0.00")
+mixin inputPrice(prop, name)
+	input(value=(prop?prop.toFixed(2):"0.00"), name=name)&attributes(attributes)
+
+block styles
+	link( href="/css/order.css" rel="stylesheet" type="text/css" )
+block scripts
+	script(src='/js/order.js')
+block header	
+	h1 Return Details
+	.controls
+		button#emails(value="") Send Email Notifications
+		button#remove-order(value=order.id) Remove Return
+block primaryControls
+
+block main
+	.orderContainer
+		.order
+			.orderHeaderContainer
+				.orderHeader
+					.orderDate
+						p.strong Return Date
+						p
+							+dateformat(order.created)
+					
+			.orderPropsContainer
+				.orderProps
+					.orderShippingInfo
+						p.strong Shipped To:
+						p= order.customer_billing_info.customer_name
+						p= order.customer_billing_info.company_name
+						p= order.ship_to_info.address_1
+						p= order.ship_to_info.address_2
+						p= order.ship_to_info.city+", "+order.ship_to_info.state+" "+order.ship_to_info.zip
+						p #{order.customer_info.email} / #{order.customer_info.phone}
+					.orderNumbers
+						p.strong Purchase Order #: #{order.po_number}
+						p Web Order Number #: #{order.web_order_number}
+						
+			.orderItems
+				- var index = 0
+				each item, key in order.sale_items
+					- index++
+					- var imgsrc = (item.item_description.image) ? item.item_description.image : "https://placehold.it/128x128"
+					.orderItem
+						p.strong Original Purchase Order #: #{item.shipping_options.original_order_num}
+						p Return Reason: #{item.shipping_options.return_reason}
+						if item.shipping_options.shipped
+							p.strong.shipped="Item #"+index+" - SHIPPED"
+						else 
+							p.strong="Item #"+index
+						.productThumb
+							img(src=imgsrc)
+						.itemInfoContainer
+							.itemInfo
+								p.strong=item.item_description.product_name
+								p="Part Number: "+item.item_no
+								p="Size: "+ item.item_description.size
+								p="Qty: "+ item.qty
+								p=item.unit_price+" each"
+						.shippingStatusContainer
+							form(action="/returns/"+order.id, method="POST")
+								.shippingStatus
+									p.strong Return To: 
+										select(name="return_to")
+											each warehouse in warehouses
+												if (warehouse.isLive)
+													option(value=warehouse.locationCode, selected=item.shipping_options.return_to===warehouse.locationCode)=warehouse.locationCode +": "+ warehouse.city+", "+warehouse.state
+								.shippingMethod
+									p.strong Shipping Method
+										if (item.shipping_options.shipping_method=="pickup")
+											p Vision Wheel - Pickup
+											p.small Please call the #{ item.fulfilment_location.name } to schedule your pick up.
+										else if (item.shipping_options.shipping_method=="return")
+											p Vision Wheel - Return
+											p Shipping Agent: #{ item.shipping_options.shipping_agent }
+											p Freight Handling: #{ item.shipping_options.freight_handling }
+										else
+											+shipping(item.shipping_options.shipping_agent, item.shipping_options.shipping_method)
+											- var thrdParty = item.shipping_options.third_party_account_number
+											if (thrdParty && thrdParty.length>0)
+												p="Account Number: "+thrdParty
+										.shippingInputs
+											input(type="hidden" name="action" value="updateSaleItem")
+											input(type="hidden" name="saleLineId" value=key)
+											p
+												label(for='shipped').itemShipped Shipped:
+													input(type='checkbox' name='shipped' checked=item.shipping_options.shipped )
+											p
+												label.itemTrackingNo Tracking No: 
+													input(type='text' name='tracking_number' value=item.shipping_options.tracking_number)
+											input(type='submit' value='Apply Shipping Status Updates')
+						//- p= JSON.stringify(item)
+			.paymentDetailsContainer
+				form(action="/returns/"+order.id, method="POST")
+					input(type="hidden" name="action" value="updateSale")
+					.orderUpdateContainer
+						
+							p
+								label(for="status").status Return Status: 
+									select(name="status")
+										option(value="APPROVED" selected=order.status.toLowerCase()=='approved') Approved
+										option(value="PENDING APPROVAL" selected=order.status.toLowerCase()=='pending approval') Pending Approval
+										option(value="REJECTED" selected=order.status.toLowerCase()=='rejected') Rejected
+							p
+								label.returnNotes Return Status Notes, include reason if rejected: 
+									input(type='text' name='return_notes' value=order.payment.return_notes)
+					input(type='submit' value='Apply Status Updates')
+		if error
+			.error=error
+block modals
+	#overlay
+	#emailNotificationsContainer(data-orderId=order.id)
+		.emailNotifications
+			.exit X
+			.shipping
+				h2 Send Item Shipped Notification
+				p Which Items where shipped?
+				- var index = 0
+					each item, key in order.sale_items
+						- index++
+						label Item ##{index}
+							input(type="checkbox" name="itemNo[]" value=index)
+				button Send Notification
+				.alert
+			.complete
+				h2 Send Item Shipping Complete Notification
+				p Which Items where shipped?
+				- var index = 0
+					each item, key in order.sale_items
+						- index++
+						label Item ##{index}
+							input(type="checkbox" name="itemNo[]" value=index)
+				button Send Notification
+				.alert
+			.payment
+				h2 Send Order Payment Notification
+				button Send Notification
+				.alert
+

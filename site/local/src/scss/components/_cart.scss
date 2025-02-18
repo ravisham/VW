@@ -1,0 +1,103 @@
+.cart {
+  img {
+    width: auto;
+  }
+  &__submit {
+    display: block;
+    text-align: right;
+    &-total {
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 10px;
+      @extend %RubikMedium;
+      text-transform: uppercase;
+      
+      span.subtotal {
+        color:#c00;
+      }
+    }
+  }
+  &__list {
+    margin: 20px 0;
+    border-bottom: 2px solid $silver;
+    thead {
+      border-bottom: 2px solid $silver;
+    }
+    td {
+      padding: 20px;
+      &:first-child {
+        padding-left: 0;
+        width: 20%;
+      }
+      &:nth-child(2) {
+        text-align: center;
+        width: 60%;
+      }
+      &:last-child {
+        width: 20%;
+      }
+    }
+    th {
+      text-align: left;
+      text-transform: uppercase;
+      @extend %RubikMedium;
+      padding: 10px 20px;
+      &:first-child {
+        padding-left: 0;
+      }
+      &:nth-child(2) {
+        text-align: center;
+        width: 60%;
+      }
+      &:last-child {
+        width: 20%;
+      }
+    }
+    .location {
+      border-top: 1px solid $silver;
+      &:first-child {
+        border-top: 0 none;
+      }
+    }
+    .quantity {
+      > span {
+        @include font-size(12, initial, 20);
+        color: $dusty-gray;
+        text-transform: uppercase;
+      }
+      input {
+        margin-left: 5px;
+      }
+    }
+    .product {
+      margin-bottom: 30px;
+      img {
+        width: auto;
+      }
+      strong {
+        margin-bottom: 5px;
+        display: block;
+      }
+      a {
+        text-decoration: underline;
+        display: block;
+        margin-bottom: 5px;
+      }
+      .image,
+      .info {
+        display: inline-block;
+        vertical-align: top;
+      }
+      .image {
+        margin-right: 10px;
+      }
+      .delete {
+        margin: 15px 0;
+        display: block;
+      }
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}

@@ -1,0 +1,92 @@
+.footer {
+  background-color: $mine-shaft;
+  color: $white;
+  clear:both;
+  min-width: 1000px;
+  width: 100%;
+  a {
+    color: $white;
+  }
+  &__menu {
+    @include clearfix;
+    padding: 1rem 40px;
+    border-bottom: 1px solid $dove-gray;
+    width: 100%;
+    &-links {
+      // width: 1024px;
+      margin: 0 auto;
+      width: 100%;
+      ul {
+        font-size: 0;
+      }
+      li {
+        display: inline-block;
+        vertical-align: top;
+        @include font-size(14, 36, -40);
+        &::after {
+          content: '|';
+          padding-left: 7px;
+          margin-right: 10px;
+          display: inline-block;
+          color: $white;
+        }
+        &:last-child {
+          &::after {
+            content: none;
+          }
+        }
+      }
+    }
+    .logo--white {
+      float: right;
+      width:100px;
+      height:30px;
+    }
+  }
+  &__support {
+    @include clearfix;
+    margin: 0 auto;
+    padding: 1rem 40px;
+    // width: 1024px;
+    width: 100%;
+    &-links {
+      @include clearfix;
+      float: left;
+      ul {
+        float: left;
+        width: 200px;
+        vertical-align: top;
+        > li {
+          @include font-size(11, 22, -40);
+          margin-bottom: 3px;
+          &:first-child {
+            @include font-size(14, initial, -40);
+            @extend %RubikMedium;
+            cursor:pointer;
+            margin-bottom: 13px;
+          }
+        }
+      }
+    }
+    &-extra {
+      float: right;
+      text-align: right;
+    }
+  }
+  &__contact-info {
+    @include font-size(11, initial, -40);
+    + .social-links {
+      margin-top: 20px;
+      a{
+        &:hover {
+          background-color:#cccccc;
+        }
+      }
+
+    }
+
+  }
+  &__copyright {
+    @include font-size(10, initial, 0);
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "defaultEnv": "test",
+  "development": {
+    "driver": "postgres",
+    "host": "pg-db.visionwheel.mirum.la",
+    "database": "visionwheeldealers_qa",
+    "schema": "visionwheeldealers_qa",
+    "user": "postgres_admin",
+    "password": "pCZJlJFCz3"
+
+  },
+  "test": {
+    "driver": "postgres",
+    "host": "pg-db.visionwheel.mirum.la",
+    "database": "visionwheeldealers_migration_test",
+    "schema": "visionwheeldealers_migration_test",
+    "user": "postgres_admin",
+    "password": "pCZJlJFCz3"
+  },
+  "production": {
+    "driver": "postgres",
+    "host": "pg-db.visionwheel.mirum.la",
+    "database": "visionwheeldealers",
+    "schema": "visionwheeldealers",
+    "user": "postgres_admin",
+    "password": "pCZJlJFCz3"
+  },
+  "postgres": {
+    "driver": "postgres",
+    "host": "pg-db.visionwheel.mirum.la",
+    "user": "postgres_admin",
+    "password": "pCZJlJFCz3",
+    "database": "visionwheeldealers_qa",
+    "schema": "visionwheeldealers_qa"
+  },
+  "other": "postgres://postgres_admin:pCZJlJFCz3@pg-db.visionwheel.mirum.la:5432/visionwheeldealers_qa",
+  "sql-file": true
+}

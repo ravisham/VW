@@ -1,0 +1,1 @@
+SELECT id FROM sales."sale" WHERE po_number = $1

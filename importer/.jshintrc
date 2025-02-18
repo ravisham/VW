@@ -1,0 +1,20 @@
+{
+    "camelcase"     : false,  // true: Identifiers must be in camelCase
+    "node"          : false,    // Node.js
+    "strict"        : false,     // true: Requires all functions run in ES5 Strict Mode
+    "laxcomma"      : false,    // true: Tolerate comma-first style coding
+    "laxbreak"      : false,    // true: Tolerate possibly unsafe line breakings
+    "esversion"     : 6,
+    // Custom Globals
+    "globals": {        // additional predefined global variables
+        "Promise" : true,
+        "Swagger" : true,
+        "Error"   : true,
+        "require"   : true,
+        "global"    : true,
+        "console"   : true,
+        "module"    : true,
+        "process"   : true,
+        "__dirname" : true
+    }
+}

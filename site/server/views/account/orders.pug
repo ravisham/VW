@@ -1,0 +1,187 @@
+extends ../templates/layout
+
+include _accountNav
+
+mixin dateformat(date)
+	-
+		var orderDate = new Date(date);
+		var utc = orderDate.getTime() + (orderDate.getTimezoneOffset() * 60000);
+		var offset = -5; //EST
+		var d = new Date(utc+(3600000*offset));
+	span=(d.getMonth()+1)+"/"+d.getDate()+"/"+d.getFullYear()
+mixin dateformatOption(value, date, po)
+	-
+		var d = new Date(date)
+		var date = (d.getMonth()+1)+"/"+d.getDate()+"/"+d.getFullYear()
+		var po = (po != null && po.length >0) ? po : "Pending"
+	option(value=value)="Order: "+date+" - "+po
+mixin shippingMethod(item)
+	- 	var agentCode = item.shipping_options.shipping_agent
+	- 	var methodCode = item.shipping_options.shipping_method
+	-	var agent
+	-	agent = (agentCode.toLowerCase()=="ups")? "UPS":agent
+	-	agent = (agentCode.toLowerCase()=="fedex")? "FedEX":agent
+	-	agent = (agentCode.toLowerCase()=="harris")? "Harris Tire":agent
+	-	var method
+	-	method = (methodCode.toLowerCase()=="standard")? "(Standard Ground)": method
+	-	method = (methodCode.toLowerCase()=="ltl")? "(LTL)": method
+	-	method = (methodCode.toLowerCase()=="expedited")? "(Expedited)": method
+	-	method = (methodCode.toLowerCase()=="fedex")? "(FedEX Connect)": method
+	-	method = (methodCode.toLowerCase()=="truck")? "(Truck Route)": method
+	strong SHIPPING METHOD:
+	p
+		span= agent || ""
+		span= method || ""
+mixin shipping(item)
+	if item.shipping_options.shipped && item.shipping_options.tracking_number.length>0
+		- var trackingNo = item.shipping_options.tracking_number
+		- var ups = "https://wwwapps.ups.com/WebTracking/track?track=yes&trackNums="+trackingNo
+		- var fedex = "https://www.fedex.com/apps/fedextrack/?tracknumbers="+trackingNo
+		- var trackingLink = item.shipping_options.shipping_agent.toLowerCase()=='ups'?ups:fedex
+		if trackingLink
+			p
+				span.status ORDER STATUS:&nbsp;&nbsp;
+				span.shipped SHIPPED&nbsp;
+				span - TRACKING #:&nbsp;&nbsp;
+				a.trackingLink(href=trackingLink, target="_blank")= trackingNo
+	else
+		p
+			span.status ORDER STATUS:
+			span.pending PENDING
+
+mixin location(order, location, i)
+	.location
+		.left
+			if i==0
+				.orderPO
+					strong Purchase Order #: #{order.po_number}
+					br
+					strong Web Order #: #{order.web_order_number}
+		.locationDetails
+			.shippingFrom
+					+shippingMethod(location.saleItems[0])
+
+			.shippingFrom
+				strong Shipping From:
+				p= location.name
+				p= location.address
+				p= location.city+", "+location.state+" "+location.postal
+			.items
+				each saleItem in location.saleItems
+					+item(saleItem)
+mixin item(item)
+	//- Please note that product and brand props could be null if an item has been orphaned
+	.item
+		.itemInfo
+			- var imgsrc = item.image.list[0] || "https://placehold.it/128x128"
+			.img
+				img(src=imgsrc)
+			.info
+				p.strong=item.model
+				if item.customer_item_no
+					p="Article #: "+item.customer_item_no
+				p="VW SKU #: "+item.item_no
+				p="Size: "+ item.item_description.size
+				p="Qty: "+ item.qty
+		.shippingMethod
+			+shipping(item)
+			p="Size: "+ item.item_description.size
+			p="Finish: "+ item.item_description.finish
+			p="Qty: "+ item.qty
+
+
+block styles
+	link( href="/css/account.css" rel="stylesheet" type="text/css" )
+block scripts
+	script(src='/js/account.js')
+block main
+	#orderHistory.dashboard__items__item.dashboard__items__item--profile
+		.dashboard__items__item-title
+			h4 Order History
+		.dashboard__items__item-content
+			section.dashboard__items-section.dashboard__items-section--address
+				.dashboard__items-section__content
+					if (orders.length)
+						each order in orders
+							.order
+								.orderHeader
+									h4 Order Placed:
+										+dateformat(order.created)
+								//many
+								each location, i in order.locations
+									+location(order, location, i)
+
+
+						//.orderPropsContainer
+							.orderProps
+								.orderShippingInfo
+									p.strong Shipped To:
+									p= order.customer_billing_info.customer_name
+									p= order.customer_billing_info.company_name
+									p= order.ship_to_info.address_1
+									p= order.ship_to_info.address_2
+									p= order.ship_to_info.city+", "+order.ship_to_info.state+" "+order.ship_to_info.zip
+								.orderNumbers
+									p.strong Purchase Order #:
+									- var orderNumber = (order.po_number != null && order.po_number.length >0) ? order.po_number : "Pending"
+									p= orderNumber
+						//.orderItems
+							- var index = 0
+							each item, key in order.sale_items
+								- index++
+								- var imgsrc = (item.item_description.image) ? item.item_description.image : "https://placehold.it/128x128"
+								.orderItem
+									if item.shipping_options.shipped
+										p.strong.shipped="Item #"+index+" - SHIPPED"
+									else
+										p.strong="Item #"+index
+									.productThumb
+										img(src=imgsrc)
+										//- img(src="https://placehold.it/128x128")
+									.itemInfoContainer
+										.itemInfo
+											p.strong=item.item_description.product_name
+											p="Part Number: "+item.item_no
+											p="Size: "+ item.item_description.size
+											p="Qty: "+ item.qty
+											p=item.unit_price+" each"
+									.shippingStatusContainer
+										.shippingStatus
+											p.strong Shipping From
+											p= item.fulfilment_location.name
+											p= item.fulfilment_location.address
+											p= item.fulfilment_location.city+", "+item.fulfilment_location.state+" "+item.fulfilment_location.postal
+										+shippingMethod(item)
+									//- p= JSON.stringify(item)
+						//.paymentDetailsContainer
+							.paymentDetails
+								p.strongLined Payment Details
+								p.strong Payment Method:
+								if order.payment.payment_method=='CHARGE'
+									p Charge to Account:
+										span= order.customer_id
+								else if order.payment.payment_method.indexOf('CREDIT')>=0
+									p Credit Card:
+										span= order.payment.CCInfo
+
+							.charges
+								if order.payment.paid==true
+									p.strongLined Paid
+								else
+									p.strongLined Charges
+								p.strong Subtotal:
+								p= order.subtotal_amount
+								p.strong Shipping:
+								p= order.freight_total
+								p.strong Tax:
+								p= order.tax_amount
+								p.strong Total:
+								p= order.total_invoice_amount
+					else
+						#orderSelectorContainer
+							p.strong You have no Orders in your history yet!
+							a.button( href="/account" ) Back to Account
+		if error
+			.error=error
+
+

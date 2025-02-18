@@ -1,0 +1,3 @@
+dealer_id,store_number,first_name,last_name,address_1,address_2,city,state,zip,phone_number,username,password,email,sales_rep_code,prefered_location,pricing_mutiplier
+DISCOUNTTIRE,1661,Davis , Milton,1572 E Florence Blvd,,Casa Grande,AZ,85122-4741,520-836-1120,AZC01,AZ1661,AZC_01@discounttire.com,11,2,1
+DISCOUNTTIRE,1002,Ronald , Stutzman,1230 S Milton Rd,,Flagstaff,AZ,86001-6306,928-774-5273,AZF01,AZ1002,AZF_01@discounttire.com,11,2,1

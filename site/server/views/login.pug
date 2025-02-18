@@ -1,0 +1,28 @@
+extends ./templates/layout
+
+block styles
+	link( href="/css/login.css" rel="stylesheet" type="text/css" )
+
+block main
+	.content
+		section.login
+			.login__state.login__state--forgot
+				form(method="POST" action="/login" class=classes).login__form
+					.login__form__title
+						h1 Dealer Login
+						- var classes = error ? ["has-error"] : []
+						if error
+							h2.error There was a problem with your username and/or password.
+						if message
+							h2.error= message
+					.login__form__fields
+						.login__form__fields-field
+							input(name="email" type="text" value="" placeholder="Username/Email")
+						.login__form__fields-field
+							input(name="password" type="password" value="" placeholder="Password")
+					.login__form__helper
+						p
+							a(href="/forgot-password") Forgot Password
+							a(href="/forgot-username") Forgot Username
+					.login__form__submit
+						button(type="submit" class="cta cta--button") Submit

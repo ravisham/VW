@@ -1,0 +1,378 @@
+@import "./common.scss";
+.adminTable {
+	font-size: .75rem;
+	width: 100%;
+	border-collapse: collapse;
+	thead {
+		th {
+			padding: 15px 0 5px;
+			&:first-child {
+				text-align: left;
+				padding-left: 5px;
+			}
+		}
+		th.sort {
+			position: relative;
+			cursor: pointer;
+			span {
+				padding-right: 10px;
+			}
+			span:after,
+			span:before {
+				border: 4px solid transparent;
+				content: "";
+				display: block;
+				height: 0;
+				right: 5px;
+				top: 50%;
+				position: absolute;
+				width: 0;
+			}
+			span:before {
+				border-top-color: #ccc;
+				margin-top: 5px;
+			}
+			span:after {
+				border-bottom-color: #ccc;
+				margin-top: -4px;
+			}
+		}
+		th.sort.desc span:after {
+			border-bottom-color: #000;
+		}
+		th.sort.asc span:before {
+			border-top-color: #000;
+		}
+	}
+	tr {
+		border-top: 1px solid #ddd;
+	}
+	tbody {
+		tr.disabled {
+			display: none;
+			font-style: italic;
+			color: #bf6262;
+			span.disabled {
+				color: red;
+				font-size: 10px;
+			}
+		}
+		tr:nth-of-type(odd) {
+			background-color: #eee;
+		}
+		tr:hover {
+			background-color: #ccc;
+		}
+		td {
+			padding: 5px;
+		}
+		td.name {
+			font-weight: bold;
+			em {
+				font-weight: normal;
+				font-size: 11px;
+				color: #999;
+			}
+		}
+		td.edit {
+			padding: 0;
+			a {
+				text-align: center;
+				display: block;
+				margin: 2px 0;
+				line-height: 2em;
+				padding: 0 5px;
+			}
+		}
+		td.phone {
+			white-space: nowrap;
+		}
+		td.address {
+			p {
+				margin: 0;
+				white-space: nowrap;
+			}
+		}
+	}
+}
+
+.adminTableControls {
+	overflow: hidden;
+	&>div {
+		float: left;
+		width: 50%;
+	}
+	.total {
+		text-align: right;
+		font-size: .9rem;
+		margin: 0;
+	}
+	#statusToggle {
+		text-align: right;
+		padding: 5px 0 10px;
+		font-size: 14px;
+		cursor: pointer;
+	}
+	.search {
+		background-image: url('data:image/svg+xml;utf8,<svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" version="1.1" id="spyglass" viewBox="0 0 22 22" height="22" width="22"><path d="m 10.011718,5.0898489 c -2.7000005,0 -4.9003915,2.2004 -4.9003915,4.9003996 0,2.6999995 2.200391,4.8983995 4.9003915,4.8983995 1.154374,0 2.204251,-0.4184 3.042969,-1.0898 l 3.207031,3.1113 0.626953,-0.6465 -3.185547,-3.0879 c 0.743242,-0.8594 1.208984,-1.964 1.208984,-3.1854995 0,-2.6999996 -2.20039,-4.9003996 -4.90039,-4.9003996 z m 0,1 c 2.2,0 3.90039,1.7004 3.90039,3.9003996 0,2.1999995 -1.70039,3.8983995 -3.90039,3.8983995 -2.2000005,0 -3.9003915,-1.6984 -3.9003915,-3.8983995 0,-2.1999996 1.700391,-3.9003996 3.9003915,-3.9003996 z" style="fill:#808080"/></svg>');
+		background-repeat: no-repeat;
+		background-color: #fff;
+		background-position: 0px 3px !important;
+		padding-left: 22px;
+		border: 1px solid #ccc;
+		border-radius: 4px;
+		font-size: 13px;
+		padding-top: 5px;
+		padding-bottom: 5px;
+		margin-top: .25rem;
+	}
+}
+
+.adminForm {
+	width: 600px;
+	margin: 0 auto;
+	max-width: 100%;
+	font-size: 13px;
+	dl {
+		overflow: hidden;
+		padding: 5px;
+		h4 {
+			font-size: 13px;
+			padding-bottom: 5px;
+			border-bottom: 1px solid #bfbfbf;
+			padding: 50px 0 5px;
+			clear: both;
+			text-transform: uppercase;
+			margin-bottom: 5px;
+			&:first-child {
+				padding-top: 0;
+			}
+		}
+		dt {
+			float: left;
+			width: 25%;
+			clear: both;
+			padding-right: 15px;
+			padding-left: 35px;
+			line-height: 34px;
+			font-family: "Roboto", sans-serif;
+			&.twoline {
+				line-height: 1.25em;
+				margin-top: 10px;
+			}
+			&:empty {
+				margin-top: 15px;
+				border-top: 1px solid #ededed;
+				width: 100%;
+				margin-bottom: 4px;
+				float:none;
+			}
+		}
+		dd {
+			float: left;
+			width: 50%; // border-left: 1px solid #ddd;
+			padding-left: 15px;
+			&>p {
+				padding-left: 5px;
+			}
+		}
+		.changePassword {
+			text-decoration: underline;
+			cursor: pointer;
+			&:hover {
+				text-decoration: none;
+			}
+		}
+		.hiddenPasswordChange {
+			display: none;
+		}
+		input[type=text],
+		input[type=password],
+		input[type=email],
+		select {
+			margin: 2px;
+			background-color: #ebebeb;
+			border: 1px solid #ccc;
+			width: 100%;
+			padding: 5px;
+			height: 30px;
+		}
+		select {
+			width: 100%;
+			padding: 3px;
+		}
+		label {
+			margin: .5rem 0;
+			display: block;
+			cursor:pointer;
+			&:hover {
+				background-color:#efefef;
+			}
+		}
+		input[type=file] {
+			padding:5px;
+		}
+	}
+	.submit {
+		margin-top:20px;
+	}
+}
+
+.ordersContainer {
+	box-sizing: border-box;
+	margin: 0 auto;
+	max-width: $desktop;
+	.rows {
+		font-size: 0.7rem;
+	}
+	.heading,
+	.row {
+		clear: both;
+		overflow: hidden;
+		width: 100%;
+		margin: 1rem 0;
+	}
+	.heading {
+		font-weight: bold;
+		font-size: 1.2rem;
+		margin-bottom: 2.5rem;
+	}
+	.action {
+		float: left;
+		width: 10%;
+	}
+	.customer {
+		float: left;
+		width: 20%;
+	}
+	.status {
+		float: left;
+		width: 20%;
+	}
+	.invoice {
+		float: left;
+		width: 20%;
+		text-align: right;
+	}
+	.submited {
+		float: left;
+		width: 30%;
+		text-align: right;
+	}
+}
+
+.productsContainer {
+	overflow: hidden;
+	margin: 0 auto;
+	max-width: $desktop;
+	.product {
+		font-size: 0.8rem;
+		text-align: left;
+		overflow: hidden;
+		width: 100%;
+		margin-bottom: 1em;
+		.brand {
+			float: left;
+			width: 10%;
+		}
+		.img {
+			float: left;
+			width: 10%;
+			img {
+				width: 100%;
+			}
+		}
+		.name {
+			float: left;
+			width: 10%;
+		}
+		.description {
+			float: left;
+			width: 30%;
+		}
+		.items {
+			float: left;
+			width: 40%;
+		}
+	}
+}
+
+.usersContainer {
+	margin: 0 auto;
+	max-width: $desktop;
+	.user {
+		clear: both;
+		overflow: hidden;
+		.created {
+			float: right;
+		}
+	}
+}
+
+.bulkImportContainer {
+	overflow: hidden;
+	margin: 0 auto;
+	max-width: $desktop;
+	p.error:empty {
+		display: none;
+	}
+	.timer {
+		text-align: center;
+	}
+	#importer {
+		border: 1px solid #ccc;
+		padding: 20px;
+	}
+	h4 {
+		margin: 25px 0 5px;
+		border-bottom: 1px solid #ccc;
+		padding-bottom: 4px;
+		font-size: 18px;
+		span {
+			font-size: 11px;
+			margin: 6px;
+			float: right;
+		}
+	}
+	ul {
+		max-height: 300px;
+		overflow-y: scroll;
+		li {
+			font-size: 13px;
+		}
+	}
+	.loading {
+		padding: 20px;
+		border: 1px solid #ccc;
+		text-align: center;
+		display: none;
+	}
+	.resultsContainer {
+		margin-top: 10px;
+		h4 {
+			color: #0a0;
+		}
+	}
+	.info {
+		font-size: 11px;
+		color: #333;
+		margin-top: 2px;
+	}
+	.errorsContainer {
+		margin-top: 30px;
+		h4 {
+			color: #a00;
+		}
+	}
+}
+
+.header-image {
+	display: block;
+	margin: 0 auto;
+	max-width: 100%;
+	width: auto;
+}
+
+.header-image-form {
+	text-align: center;
+}

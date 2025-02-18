@@ -1,0 +1,32 @@
+//
+//  Import default css to set a base/foundation for the site
+//
+@import 'defaults/config',
+'defaults/functions',
+'defaults/mixins',
+'defaults/grid',
+'defaults/typography',
+'defaults/reset',
+'defaults/layout',
+'defaults/ctas',
+'defaults/icons';
+
+//
+//  Import component css files
+//
+@import 'components/carousel',
+'components/cart',
+'components/checkout',
+'components/confirmation',
+'components/dashboard',
+'components/featured-content',
+'components/filters',
+'components/footer',
+'components/header',
+'components/login',
+'components/logo',
+'components/modal',
+'components/popular',
+'components/search-results',
+'components/sidebar',
+'components/social';

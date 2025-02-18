@@ -1,0 +1,122 @@
+// http://meyerweb.com/eric/tools/css/reset/
+// v2.0 | 20110126
+// License: none (public domain)
+
+*, *:after, *:before {
+  -webkit-tap-highlight-color: rgba($white, 0);
+  -webkit-tap-highlight-color: transparent;
+  box-sizing: inherit;
+  border: 0;
+  margin: 0;
+  outline: none;
+  padding: 0;
+  font-size: 100%;
+  font-weight: normal;
+  font: inherit;
+  text-size-adjust: 100%;
+  vertical-align: baseline;
+}
+// HTML5 display-role reset for older browsers
+article, aside, details, figcaption, figure, time,
+footer, header, hgroup, menu, nav, section, main {
+  display: block;
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+html, body {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  background-color: transparent;
+  margin: 0;
+  padding: 0;
+  text-rendering: optimizelegibility;
+  width: 100%;
+  height: 100%;
+}
+html {
+  box-sizing: border-box;
+}
+body {
+  font-style: normal;
+  font-variant: normal;
+  letter-spacing: normal;
+  line-height: 1;
+  color: $text-color;
+  @extend %Rubik;
+}
+h1, h2, h3, h4, h5, h6 {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-size: inherit;
+  font-weight: inherit;
+  font-style: normal;
+  font-variant: normal;
+  letter-spacing: inherit;
+  line-height: inherit;
+  text-rendering: optimizelegibility;
+  @extend %RubikMedium;
+}
+a {
+  color: $link-color;
+  @extend %Rubik;
+  text-decoration: none;
+  &:hover {
+    text-decoration: none;
+  }
+}
+u {
+  text-decoration: underline;
+}
+strike, s {
+  text-decoration: line-through;
+}
+strong, b {
+  @extend %RubikMedium;
+}
+ul, ol, li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+label {
+  cursor: default;
+}
+table, tbody, thead, tr {
+  width: 100%;
+}
+img, object, embed, video, iframe, svg, svg>use {
+  border: 0 none;
+  height: auto;
+  max-width: 100%;
+  vertical-align: middle;
+  width: 100%;
+  display: inline-block;
+}
+svg, use>svg {
+  fill: $white;
+  vertical-align: middle;
+}
+input,
+button,
+textarea {
+  background: none;
+  box-shadow: none;
+  border-radius: 0;
+  appearance: none;
+  border: 0 none;
+  padding: 0;
+  display: block;
+  margin: 0;
+}

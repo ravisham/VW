@@ -1,0 +1,63 @@
+@import "./common.scss";
+
+img {
+	width: 50px;
+}
+.productImages{
+	float: left;
+	width: 50%;
+	.images {
+		font-size: 0.7rem;
+	}
+}
+.productName{
+	float: left;
+	width: 50%;
+	input{}
+	textarea{}
+}
+
+.productItems {
+	margin: 0 auto;
+	max-width: $desktop;
+	overflow: scroll-x;
+	table {
+		width: 100%;
+		td{
+			border: thin solid black;	
+		}
+		
+	}
+}			
+.deleteProduct {
+	background-color: lightred;
+}
+.productCreateDetails, .deleteProduct {
+	max-width: 60rem;
+    margin: 0 auto;
+}
+    
+.productItems {
+	max-width: $desktop;
+	margin: 0 auto;
+	table {
+		width: 100%;
+		max-width:$desktop;
+		td.specs .specsOver{
+			display: none;
+			font-size: 0.6;
+			p {
+				margin: 0;
+			}
+		}
+		td.specs:hover{
+			.specsOver {
+				display: block;
+			}
+			p.rollover{
+				display: none;
+			}
+
+		} 
+	}
+}

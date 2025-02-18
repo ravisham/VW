@@ -1,0 +1,144 @@
+extends ../templates/layout
+include _accountNav
+
+block styles
+	link( href="/css/account.css" rel="stylesheet" type="text/css" )
+block scripts
+	script(src='/js/account.js')
+block main
+	#dashboard.dashboard__items__item.dashboard__items__item--profile
+		.dashboard__items__item-title
+			h4 My Account
+		if message
+			.message=message
+		if error
+			.error=error
+
+		.dashboard__items__item-content
+			if error && error.password
+				.error=error.password
+			if success && success.password
+			section.dashboard__items-section.dashboard__items-section--address
+				.dashboard__items-section__content
+					.wrap
+						h3=user.first_name+' '+user.last_name
+						h5= user.dealer.company_name_1 || user.dealer.company_name_2
+
+						-let userCanEditSomething = false;
+						-let hasProfile = false;
+						if user && user.dealer && user.dealer.profile && user.dealer.profile.userCanEdit
+							-hasProfile = true;
+							each setting in user.dealer.profile.userCanEdit
+								if setting
+									- userCanEditSomething = true
+
+
+					form#profileUpdate(action='/account' method='post')
+						dl
+							h4 Contact Details
+
+							dt Name
+							dd
+								if hasProfile && user.dealer.profile.userCanEdit.contactDetails
+									input(type='text', name='first_name' placeholder='First Name' value=user.first_name)
+									input(type='text', name='last_name' placeholder='Last Name' value=user.last_name)
+								else
+									p=user.first_name+' '+user.last_name
+
+							dt Email
+							dd
+								p=user.email
+
+							dt Phone
+							dd
+								if hasProfile && user.dealer.profile.userCanEdit.contactDetails
+									input(type='text', name='phone_number' placeholder='Phone Number' value=user.phone_number)
+								else
+									p=user.phone_number
+									
+							h4 Login
+							if hasProfile && user.dealer.profile.userCanEdit.login
+								dt Username
+								dd
+									input(type='text', name='username' placeholder='Username' value=user.username)
+								
+								dt Password
+								dd
+									p.changePassword Change Password
+									.hiddenPasswordChange
+										//input(type='password', name='oldpassword' placeholder='Old Password')
+										input(type='password', name='newpassword' placeholder='New Password')
+										input(type='password', name='confirmpassword' placeholder='Confirm New Password')
+							else
+								dt Username
+								dd
+									p=user.username
+									
+							h4 Sales Representative
+							dt.twoline Vision Wheel Sales Rep
+							- var salesRep = salesReps.find(rep => rep.id === user.sales_rep);				
+							dd
+								if hasProfile && user.dealer.profile.userCanEdit.salesRep
+									select(name="salesrep_select")
+										each rep in salesReps
+											- let selected = parseInt(user.sales_rep) === parseInt(rep.id);
+											if rep.name
+												option(value=rep.id, selected=selected)=rep.name
+								else
+									if salesRep && salesRep.name
+										p=salesRep.name
+									else
+										p Unable to get sales rep name
+
+							h4 Address
+							if hasProfile && user.dealer.profile.userCanEdit.address
+								input(type="hidden" name="store_number" placeholder="Store Number" value=user.store_number)
+								dt Address 1
+								dd
+									input(type="text", name="address_1" placeholder="Address" value=user.address_1)
+								dt Address 2
+								dd
+									input(type="text", name="address_2" placeholder="Address 2" value=user.address_2)
+								dt City
+								dd
+									input(type="text", name="city" placeholder="City" value=user.city)
+								dt State								
+								dd
+									input(type="text", name="state" placeholder="State" value=user.state)
+								dt Zip
+								dd
+									input(type="text", name="zip" placeholder="Zip" value=user.zip)
+							else
+								dt Store Number
+								dd
+									p #{user.store_number} 
+								dt.twoline Shipping & Billing Address
+								dd
+									p= user.address_1
+									if user.address_2
+										p= user.address_2
+									p #{user.city}, #{user.state} #{user.zip}
+
+							h4 Default Location
+							if hasProfile && user.dealer.profile.userCanEdit.location
+								dt.twoline Warehouse Location
+								dd
+									select(name="warehouse_select")
+										each warehouse in warehouses
+											- let selected = parseInt(user.shipping_config.defaultLocationCode) === parseInt(warehouse.locationCode);
+											if ((warehouse) && (warehouse.isLive === true))
+												option(value=warehouse.locationCode, selected=selected)=warehouse.name
+							else
+								dt.twoline Warehouse Location
+								dd
+									if ((warehouse) && (warehouse.name))
+										p #{warehouse.name} <br> #{warehouse.address} #{warehouse.city}, #{warehouse.state} #{warehouse.postal}
+									else
+										p Unable to get warehouse name
+
+						.submit
+							if userCanEditSomething
+								button(type="submit" class="cta cta--button") Save
+							.help
+								h5 Need Help?
+								p Please call 1 (800) 633-3936

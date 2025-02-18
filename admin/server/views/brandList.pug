@@ -1,0 +1,62 @@
+extends ./template
+include ./_mixins
+
+block styles
+	link( href="/css/brands.css" rel="stylesheet" type="text/css" )
+block scripts
+	script(src='/js/brands.js')
+block header	
+	h1 Brand Management
+block primaryControls
+	.primaryControl.productHeader
+			a(href="/brands/create") Create Brand
+
+	.primaryControl.productName
+		
+block main
+	.brandsContainer
+		if error 
+			p.error=error
+		if message
+			p.message=message
+			
+		if brands
+			#sortableTable
+				.adminTableControls
+					.left
+						input(class="search" placeholder="Search brands")
+					.right
+						p.total= brands.filter(brand => brand.disabled !== true).length.toLocaleString() + " Brands"
+						#statusToggle
+							label
+								input(type="checkbox").statusToggle
+								| Show Disabled Brands	
+				table#brandTable.adminTable
+					thead
+						tr
+							th.sort(data-sort="name")
+								span Name
+							th.sort(data-sort="type")
+								span Type
+							th
+								span Logo Image
+							th
+								span Edit
+					tbody.list
+						each brand in brands
+							tr(class=brand.disabled ? "disabled" : null)
+								td.name 
+									strong #{brand.name} 
+									if brand.disabled 
+										<span class="disabled"> (disabled)</span>
+									| <br/><em> #{brand.slug} </em>
+								td.type=brand.type
+								td.logo
+									if brand.logo
+										img(src=brand.logo)
+									else
+										em.null null
+								td.edit
+									a(href="/brands/" + brand.id) Edit
+		else
+			p No Brands Found

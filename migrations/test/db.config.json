@@ -1,0 +1,7 @@
+{
+  "postgres": {
+    "driver": "postgres",
+    "database": "visionwheeldealers_test",
+    "schema": "visionwheeldealers_test"
+  }
+}

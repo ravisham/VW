@@ -1,0 +1,271 @@
+.header {
+  width: 100%;
+  position: fixed;
+  background: white;
+  z-index: 99;
+  border:1px solid $silver;
+
+  &__nav {
+    @include clearfix;
+    @include font-size(14, initial, -40);
+    background-color: $mine-shaft;
+    padding: 0 40px;
+    a {
+      color: $white;
+    }
+    .menu__wrap {
+      margin: 0 auto;
+      // width: 1024px;
+      width: 100%;
+      .header__menu {
+        &:first-child {
+          float: left;
+        }
+        &:last-child {
+          float: right;
+        }
+      }
+    }
+  }
+  &__menu {
+    display: inline-block;
+    vertical-align: top;
+    font-size: 0;
+    > li {
+      padding-right: 10px;
+      margin-right: 8px;
+      a {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        display: block;
+      }
+      &:last-child {
+        margin: 0 0 0 0;
+      }
+    }
+    li {
+      @include font-size(10, initial, -40);
+      display: inline-block;
+      vertical-align: top;
+      position: relative;
+      &.sub-menu {
+        position: relative;
+        > a {
+          cursor: pointer;
+          position: relative;
+          padding-right: 18px;
+          &::after {
+            content: '';
+            width: 0;
+            height: 0;
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-top: 6px solid $guardsman-red;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            right: 0;
+          }
+        }
+        > ul {
+          display: none;
+          position: absolute;
+          left: 0;
+          background-color: rgba($mine-shaft, .97);
+          top: 100%;
+          padding: 20px 0;
+          width: 160px;
+          li {
+            display: block;
+            a {
+              padding: 5px 1rem;
+              display: block;
+            }
+            &.active,
+            &:hover {
+              a {
+                background-color: $dove-gray;
+              }
+            }
+            &::after {
+              content: none;
+            }
+          }
+        }
+        &:hover {
+          position: relative;
+          &::before {
+            content: '';
+            position: absolute;
+            top: 100%;
+            height: 3px;
+            width: 110%;
+            left: -10px;
+            background-color: $guardsman-red;
+            z-index: 10;
+            padding-right: 10px;
+          }
+          > ul {
+            position: absolute;
+            display: block;
+            left: -10px;
+            top: 100%;
+          }
+        }
+      }
+      &.my-account {
+        padding-left: 23px;
+        @include background-icon('account-icon') {
+          background-size: 17px auto;
+          background-position: left center;
+        }
+      }
+      &::after {
+        content: '|';
+        display: inline-block;
+        color: $white;
+        position: absolute;
+        top: 50%;
+        right: 0;
+        transform: translateY(-50%);
+      }
+      &:last-child {
+        &::after {
+          content: none;
+        }
+      }
+    }
+  }
+  &__utility {
+    @include clearfix;
+    margin: 0 auto;
+    padding: 20px 40px;
+    // width: 1024px;
+    width: 100%;
+    .logo {
+      float: left;
+    }
+    .header__cart {
+      float: right;
+    }
+    .header__search {
+      float: right;
+    }
+  }
+  &__search {
+    padding: 1rem 0;
+    position: relative;
+    &-form {
+      display: inline-block;
+      vertical-align: top;
+      input {
+        @extend %RubikMedium;
+        @include font-size(10, 12, 60);
+        background-color: $gallery;
+        border: 1px solid $silver;
+        color: $mine-shaft;
+        display: inline-block;
+        height: 32px;
+        padding: 0.5rem 1rem;
+        vertical-align: top;
+        width: 315px;
+        &:active, &:focus {
+          background-color: $white;
+          color: $silver;
+        }
+      }
+      button {
+        display: inline-block;
+        vertical-align: top;
+        margin-left: 5px;
+      }
+    }
+    &-dropdown {
+      position: absolute;
+      z-index: 1;
+      .ui-menu {
+        background-color: $gallery;
+        border-right: 1px solid $silver;
+        border-bottom: 1px solid $silver;
+        border-left: 1px solid $silver;
+        .ui-menu-item {
+          @extend %RubikMedium;
+          @include font-size(10, 12, 60);
+          background-color: $white;
+          color: $mine-shaft;
+          cursor: pointer;
+          padding: 0.5rem 1rem;
+          width: 100%;
+          &:hover {
+            background-color: transparent;
+          }
+        }
+        &.no-results {
+          width: 315px;
+          .ui-menu-item {
+            &:hover {
+              background-color: $white;
+            }
+          }
+          &.hidden {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+  &__cart {
+    cursor: pointer;
+    display: inline-block;
+    margin: 0.5rem 1rem;
+    position: relative;
+    vertical-align: top;
+    &-quantity {
+      position: absolute;
+      top: 10px; left: 0;
+      transform: translateY(-50%);
+      &__count {
+        background-color: $guardsman-red;
+        border-radius: 50%;
+        width: 23px;
+        height: 23px;
+        @include font-size(10, 25, -20);
+        color: $white;
+        text-align: center;
+        display: inline-block;
+      }
+    }
+    &-link {
+      padding-left: 0px;
+      padding-top: 1rem;
+      @extend %Rubik;
+      span {
+        @include font-size(12, 20, 60);
+        color: $dusty-gray;
+        display: inline-block;
+        vertical-align: middle;
+        padding-top: 4px;
+      }
+      &::before {
+        @include background-icon('cart-icon') {
+          background-size: 23px auto;
+        }
+        content: '';
+        width: 23px;
+        height: 20px;
+        display: inline-block;
+        margin-left: 13px;
+        margin-right: 5px;
+        vertical-align: middle;
+      }
+    }
+    &:hover {
+      .header__cart-quantity__count{
+        background-color: $red-berry;
+      }
+      a {
+        color: $silver;
+      }
+    }
+  }
+}

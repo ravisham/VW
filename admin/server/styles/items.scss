@@ -1,0 +1,41 @@
+@import "./common.scss";
+
+img {
+	width: 50px;
+}
+.items {
+	max-width: $desktop;
+	margin: 0 auto;
+	table {
+		width: 100%;
+		max-width:$desktop;
+		tr.orphine {
+			background-color: #acacac;
+		}
+		td.specs .specsOver{
+			display: none;
+			font-size: 0.6;
+			p {
+				margin: 0;
+			}
+		}
+		td.specs:hover{
+			.specsOver {
+				display: block;
+			}
+			p.rollover{
+				display: none;
+			}
+
+		} 
+	}
+}
+.productAssociationContainer {
+	padding: 1px;
+	background-color: $lightgrey;
+	margin-bottom: 1rem;
+	.productAssociation {
+		max-width: $desktop;
+		margin: 0 auto;
+	}
+}

@@ -1,0 +1,72 @@
+@import "./common.scss";
+
+.dealersContainer {
+	overflow: hidden;
+	margin: 0 auto;
+	max-width: $desktop;
+
+	#dealerListTable {
+		tr.disabled {
+			display:none;
+			color: #900;
+
+			strong {
+				user-select: none; 
+			}
+		}
+	}
+
+	
+	.message {
+		padding:10px;
+		background-color:#ccf;
+	}
+}
+
+.dealerCreateDetails {
+	max-width: 60rem;
+    margin: 0 auto;
+	input[type="text"] {
+		padding:4px;
+		min-width:30%;
+	}
+	input[type="submit"] {
+		padding:4px;
+	}
+	.message {
+		background-color:#cfc;
+		padding:10px;
+	}
+
+	button#delete {
+		margin-left:20px;
+		color:red;
+	}
+
+	p.info {
+		font-size: 14px;
+		margin: 0 0 10px;
+		color: #777;
+	}
+
+	label {
+		display: block;
+		clear: both;
+		padding:3px 0;
+		max-width: 290px;
+		font-size:14px;
+
+		input[type=checkbox] {
+			margin-right:10px;
+		}
+	}
+	input[name=order_confirmation_email] {
+		margin-left:25px !important;
+		width:calc(100% - 25px) !important;
+		margin-bottom:10px !important;
+
+		&.err {
+			border:1px solid red;
+		}
+	}
+}

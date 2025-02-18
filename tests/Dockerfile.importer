@@ -1,0 +1,25 @@
+FROM nodesource/trusty:6.2.1
+
+MAINTAINER Troy Conrad <troy.conrad@mirumagency.com>
+
+RUN mkdir -p /usr/src/app/common /usr/src/app/tests /usr/src/app/importer
+
+# Install common dependencies
+WORKDIR /usr/src/app/common
+COPY /common/package.json /usr/src/app/common/
+RUN npm install
+COPY /common/. /usr/src/app/common
+
+# Install importer dependencies
+WORKDIR /usr/src/app/importer
+COPY /importer/package.json /usr/src/app/importer/
+RUN npm install
+COPY /importer/. /usr/src/app/importer
+
+# Install tests dependencies
+WORKDIR /usr/src/app/tests
+COPY /tests/package.json /usr/src/app/tests/
+RUN npm install
+COPY /tests/. /usr/src/app/tests
+
+CMD ["/usr/bin/npm", "start", "--", "--test=importer"]

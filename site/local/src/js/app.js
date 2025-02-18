@@ -1,0 +1,15 @@
+import './components/carousel';
+import './components/cart';
+import './components/checkout';
+import './components/confirmation';
+import './components/dashboard';
+import './components/featured-content';
+import './components/filters';
+import './components/footer';
+import './components/header';
+import './components/login';
+import './components/logo';
+import './components/modal';
+import './components/popular';
+import './components/search-results';
+import './components/social';
